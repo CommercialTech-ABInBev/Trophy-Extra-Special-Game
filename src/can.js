@@ -10,11 +10,16 @@ export default class Can{
         this.reset();
 
         this.size = {width: 64, height: 128};
+
     }
 
     reset(){
         this.position = { x: this.gameWidth/2, y: this.gameHeight/5 };
         this.speed = { x: 5, y: 0 };
+    }
+
+    pour(){
+        this.speed = { x: 0, y: 0 };
     }
 
     draw(context){

@@ -1,11 +1,9 @@
 import Can from '/src/can';
 import Cup from '/src/cup';
+import InputHandler from '/src/input';
+import * as Constants from '/src/constants';
 
-const GAMESTATE = {
-    PAUSED: 0,
-    RUNNING: 1,
-    MENU: 2,
-}
+const GAMESTATE = Constants.GAMESTATE;
 
 export default class Game{
     constructor(gameWidth, gameHeight){
@@ -17,10 +15,11 @@ export default class Game{
         this.can = new Can(this);
         this.cups = [
             new Cup(this, {x: 12}),
-            new Cup(this, {x: this.gameWidth/2}),
-            new Cup(this, {x: this.gameWidth - 96}),
+            new Cup(this, {x: (this.gameWidth/2)}),
+            new Cup(this, {x: (this.gameWidth - 96)}),
         ];
-
+        
+        new InputHandler(this);        
         this.start();
     }
 
@@ -43,7 +42,6 @@ export default class Game{
         [...this.gameObjects].forEach((object) => {
             object.update(deltaTime)
         });
-
     }
 
     draw(context){

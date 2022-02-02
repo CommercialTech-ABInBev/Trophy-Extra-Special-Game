@@ -1,20 +1,13 @@
+import * as Constants from '/src/constants';
+const GAMESTATE = Constants.GAMESTATE;
+
 export default class InputHandler{
     constructor(game) {
-        document.addEventListener("keydown", (event) => {
-            game.paddle.move(event.keyCode);
-            switch(event.keyCode){
-                case 27:
-                    game.togglePause();
-                    break;
-                case 32:
-                    game.start();
-                    break;
-                }
-    
+        let canvas = document.getElementById("game-screen");
+        canvas.addEventListener("click", (e) => {
+            console.log(game.can.position)
+            game.gameState = GAMESTATE.RETRY;
         });
-        document.addEventListener("keyup", (event) => {
-            game.paddle.stop(event.keyCode);
-        });
+
     }
-     
 }
