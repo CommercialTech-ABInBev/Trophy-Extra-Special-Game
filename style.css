@@ -1,0 +1,26 @@
+body{
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	/* background:#131a7a; */
+    /* color: #ffffff; */
+}
+#game-screen-container{
+    padding: 5px;
+}
+#game-screen{
+	border: 1px solid #e90303;
+    position: absolute;
+    background: #000000;
+    top: 0;
+    left: 0;
+}
+
+#img-can{
+	display: none;
+}
+
+#img-cup{
+	display: none;
+}
+

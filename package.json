@@ -1,0 +1,18 @@
+{
+  "name": "cancup",
+  "version": "1.0.0",
+  "description": "A web game build with JavaScript, HTML5 and CSS.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build index.html",
+    "dev": "parcel index.html"
+  },
+  "keywords": [],
+  "author": "Femi Ayodeji <femidotayodeji@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "1.12.3"
+  },
+  "dependencies": {}
+}
