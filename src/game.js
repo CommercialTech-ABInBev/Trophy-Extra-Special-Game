@@ -1,4 +1,5 @@
 import Can from '/src/can';
+import Cup from '/src/cup';
 
 const GAMESTATE = {
     PAUSED: 0,
@@ -14,8 +15,11 @@ export default class Game{
         this.gameState = GAMESTATE.MENU;
         
         this.can = new Can(this);
-
-        // new InputHandler(this);        
+        this.cups = [
+            new Cup(this, {x: 12}),
+            new Cup(this, {x: this.gameWidth/2}),
+            new Cup(this, {x: this.gameWidth - 96}),
+        ];
 
         this.start();
     }
@@ -28,7 +32,7 @@ export default class Game{
 
         this.can.reset();
 
-        this.gameObjects = [this.can];
+        this.gameObjects = [this.can,...this.cups];
 
         this.gameState = GAMESTATE.RUNNING;
     }

@@ -18,6 +18,7 @@ export default class Can{
     }
 
     draw(context){
+        context.save();
         context.drawImage(
             this.image, 
             this.position.x, 
@@ -25,6 +26,7 @@ export default class Can{
             this.size.width, 
             this.size.height
         );
+        context.restore();
     }
 
     update(deltaTime){        
