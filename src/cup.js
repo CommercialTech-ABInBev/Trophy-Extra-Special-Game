@@ -9,7 +9,7 @@ export default class Cup{
 
         this.size = {width: 80, height: 128};
         this.position = position;
-        this.position.y = this.gameHeight - (this.size.height + 50);
+        this.position.y = this.gameHeight - (this.size.height + 100);
     }
 
     draw(context){

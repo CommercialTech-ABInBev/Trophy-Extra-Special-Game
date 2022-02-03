@@ -17,9 +17,9 @@ export default class Game{
 
         this.can = new Can(this);
         this.cups = [
-            new Cup(this, {x: 12}),
-            new Cup(this, {x: (this.gameWidth/2)}),
-            new Cup(this, {x: (this.gameWidth - 96)}),
+            new Cup(this, {x: (this.gameWidth/3.5)}),
+            new Cup(this, {x: (this.gameWidth/1.9)}),
+            new Cup(this, {x: (this.gameWidth/1.3)}),
         ];
         
         new InputHandler(this);        

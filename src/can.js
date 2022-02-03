@@ -1,3 +1,6 @@
+import * as Constants from '/src/constants';
+const GAMESTATE = Constants.GAMESTATE;
+
 export default class Can{
     constructor(game){
         this.gameWidth = game.gameWidth;
@@ -15,7 +18,7 @@ export default class Can{
 
     reset(){
         this.position = { x: this.gameWidth/2, y: this.gameHeight/5 };
-        this.speed = { x: 5, y: 0 };
+        this.speed = { x: 10, y: 0 };
     }
 
     pour(){
@@ -24,6 +27,13 @@ export default class Can{
 
     draw(context){
         context.save();
+        if(this.game.gameState === GAMESTATE.RETRY){
+            this.image = document.getElementById("img-pour");
+            this.size = {width: 128, height: 64};
+        } else {
+            this.image = document.getElementById("img-can");
+            this.size = {width: 64, height: 128};
+        }
         context.drawImage(
             this.image, 
             this.position.x, 
@@ -41,5 +51,6 @@ export default class Can{
         if(this.position.x + this.size.width > this.gameWidth || this.position.x < 0){
             this.speed.x *= -1
         }
+        
     }
 }
