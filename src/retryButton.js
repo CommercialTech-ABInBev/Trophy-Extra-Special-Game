@@ -4,7 +4,7 @@ export default class RetryButton{
     }
     
     draw(context){
-        let retryBtn = document.getElementById("img-retry");
+        const retryBtn = document.getElementById("img-retry");
         if(this.visible){
             retryBtn.classList.add("show");
         } else {

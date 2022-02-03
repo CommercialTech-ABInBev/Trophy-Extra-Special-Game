@@ -1,6 +1,6 @@
 import Can from '/src/can';
 import Cup from '/src/cup';
-import RetryButton from '/src/retryBtn';
+import RetryButton from '/src/retryButton';
 import InputHandler from '/src/input';
 import * as Constants from '/src/constants';
 
