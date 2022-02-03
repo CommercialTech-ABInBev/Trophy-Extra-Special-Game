@@ -16,11 +16,13 @@ body{
     left: 0;
 }
 
-#img-can{
+.game-object img{
 	display: none;
 }
 
-#img-cup{
-	display: none;
+#img-retry.show{
+	width: 48px;
+	position: absolute;
+	top: 20px;
+	right: 15px;
 }
-

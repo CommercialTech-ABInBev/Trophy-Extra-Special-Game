@@ -5,9 +5,14 @@ export default class InputHandler{
     constructor(game) {
         let canvas = document.getElementById("game-screen");
         canvas.addEventListener("click", (e) => {
-            console.log(game.can.position)
             game.gameState = GAMESTATE.RETRY;
+            game.retryButton.visible = true;
         });
 
+        let retryBtn = document.getElementById("img-retry");
+        retryBtn.addEventListener("click", (e) => {
+            game.retryButton.visible = false;
+            game.gameState = GAMESTATE.RUNNING;
+        });
     }
 }

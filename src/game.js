@@ -1,5 +1,6 @@
 import Can from '/src/can';
 import Cup from '/src/cup';
+import RetryButton from '/src/retryBtn';
 import InputHandler from '/src/input';
 import * as Constants from '/src/constants';
 
@@ -12,6 +13,8 @@ export default class Game{
         this.gameObjects = [];
         this.gameState = GAMESTATE.MENU;
         
+        this.retryButton = new RetryButton(this);
+
         this.can = new Can(this);
         this.cups = [
             new Cup(this, {x: 12}),
@@ -24,14 +27,9 @@ export default class Game{
     }
 
     start(){
-        if(
-            this.gameState !== GAMESTATE.MENU && 
-            this.gameState !== GAMESTATE.NEWLEVEL
-        ) return;
-
         this.can.reset();
 
-        this.gameObjects = [this.can,...this.cups];
+        this.gameObjects = [this.can,this.retryButton,...this.cups];
 
         this.gameState = GAMESTATE.RUNNING;
     }
