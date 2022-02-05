@@ -17,6 +17,7 @@ export default class Can{
     }
 
     reset(){
+        this.game.retryButton.visible = false;
         this.position = { x: this.gameWidth/2, y: this.gameHeight/5 };
         this.speed = { x: 10, y: 0 };
     }

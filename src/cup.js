@@ -22,6 +22,12 @@ export default class Cup{
             this.size.height
         );
         context.restore();
+
+        context.beginPath(); 
+         context.moveTo(this.game.can.position.x,this.game.can.position.y);
+        context.lineTo(this.position.x, this.position.y);
+        // Make the line visible
+        context.stroke();
     }
 
     update(deltaTime){        

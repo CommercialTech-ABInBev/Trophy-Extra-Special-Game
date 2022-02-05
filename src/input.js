@@ -11,7 +11,7 @@ export default class InputHandler{
 
         let retryBtn = document.getElementById("img-retry");
         retryBtn.addEventListener("click", (e) => {
-            game.retryButton.visible = false;
+            game.can.reset();
             game.gameState = GAMESTATE.RUNNING;
         });
     }
