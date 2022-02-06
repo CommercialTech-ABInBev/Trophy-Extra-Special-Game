@@ -6,5 +6,55 @@ export default class Score{
         this.game = game;
     }
 
+    pour(){
+        let poured = false;
+        let spilled = false;
+
+        const canSpot = this.game.can.position.x;
+        console.log("Can Spot: ", canSpot);
+
+        this.game.cups.map((cup) => {
+            const accurrancy = 1;
+            const cupX = (cup.position.x) + accurrancy;
+            const cupSpot = (cupX + cup.size.width) - accurrancy;
+            console.log(`Expect region ${cupX} - ${cupSpot}`);
+            if(canSpot >= cupX && canSpot <= cupSpot){
+                if(cup.full){
+                    spilled = true;
+                } else {
+                    poured = true;
+                    cup.full = true;
+                }
+            }
+        }); 
+
+        return {spilled, poured};
+    }
+
+    miss(){
+        console.log("Missed!");
+        this.emptyCups();
+    }
+
+    spill(){
+        console.log("Spilled!");        
+        this.emptyCups();
+    }
     
+    won(){
+        console.log("Won!");
+
+        const fullCups = this.game.cups.filter((cup) => { return cup.full});
+        console.log("Full cups: ",fullCups.length);
+        if(fullCups.length === 3){
+            console.log("Congratulation!");
+            this.emptyCups();
+        }
+    }
+    
+    emptyCups(){
+        this.game.cups.map((cup) => {
+            cup.full = false;
+        });
+    }
 }
