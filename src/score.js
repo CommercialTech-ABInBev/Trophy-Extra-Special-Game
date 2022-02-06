@@ -14,7 +14,7 @@ export default class Score{
         console.log("Can Spot: ", canSpot);
 
         this.game.cups.map((cup) => {
-            const accurrancy = 1;
+            const accurrancy = 10;
             const cupX = (cup.position.x) + accurrancy;
             const cupSpot = (cupX + cup.size.width) - accurrancy;
             console.log(`Expect region ${cupX} - ${cupSpot}`);
@@ -32,21 +32,25 @@ export default class Score{
     }
 
     miss(){
+        this.game.gameState = GAMESTATE.MISSED;
         console.log("Missed!");
         this.emptyCups();
     }
 
     spill(){
+        this.game.gameState = GAMESTATE.SPILLED;
         console.log("Spilled!");        
         this.emptyCups();
     }
-    
-    won(){
+
+    win(){
+        this.game.gameState = GAMESTATE.WON;
         console.log("Won!");
 
         const fullCups = this.game.cups.filter((cup) => { return cup.full});
         console.log("Full cups: ",fullCups.length);
         if(fullCups.length === 3){
+            this.game.gameState = GAMESTATE.CONGRATS;
             console.log("Congratulation!");
             this.emptyCups();
         }

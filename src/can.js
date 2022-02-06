@@ -28,7 +28,7 @@ export default class Can{
 
     draw(context){
         context.save();
-        if(this.game.gameState === GAMESTATE.RETRY){
+        if([GAMESTATE.POURED, GAMESTATE.MISSED, GAMESTATE.WON, GAMESTATE.SPILLED, GAMESTATE.CONGRATS].includes(this.game.gameState)){
             this.image = document.getElementById("img-pour");
             this.size = {width: 128, height: 64};
         } else {

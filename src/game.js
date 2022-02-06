@@ -3,6 +3,7 @@ import Cup from '/src/cup';
 import RetryButton from '/src/retryButton';
 import InputHandler from '/src/input';
 import * as Constants from '/src/constants';
+import StateManager from '/src/stateManager'
 
 const GAMESTATE = Constants.GAMESTATE;
 
@@ -12,7 +13,7 @@ export default class Game{
         this.gameHeight = gameHeight;
         this.gameObjects = [];
         this.gameState = GAMESTATE.MENU;
-        
+        this.stateManager = new StateManager(this);
         this.retryButton = new RetryButton(this);
 
         this.can = new Can(this);
@@ -29,7 +30,7 @@ export default class Game{
     start(){
         this.can.reset();
 
-        this.gameObjects = [this.can,this.retryButton,...this.cups];
+        this.gameObjects = [this.can,this.retryButton,...this.cups,this.stateManager];
 
         this.gameState = GAMESTATE.RUNNING;
     }

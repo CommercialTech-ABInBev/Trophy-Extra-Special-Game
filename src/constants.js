@@ -2,5 +2,9 @@ export const GAMESTATE = {
     PAUSED: 0,
     RUNNING: 1,
     MENU: 2,
-    RETRY: 3,
+    POURED  : 3,
+    MISSED: 4,
+    WON: 5,
+    SPILLED: 6,
+    CONGRATS: 7
 }

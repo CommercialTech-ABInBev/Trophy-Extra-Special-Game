@@ -11,7 +11,7 @@ export default class InputHandler{
 
         canvas.addEventListener("click", (e) => {
             if(game.gameState === GAMESTATE.RUNNING){
-                game.gameState = GAMESTATE.RETRY;
+                game.gameState = GAMESTATE.POURED;
                 game.retryButton.visible = true;
 
                 const {poured, spilled} = this.score.pour();
@@ -19,7 +19,7 @@ export default class InputHandler{
                 if(spilled){
                     this.score.spill();
                 } else if(poured){
-                    this.score.won()
+                    this.score.win()
                 } else {
                     this.score.miss();
                 }
