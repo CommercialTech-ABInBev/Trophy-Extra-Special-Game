@@ -10,6 +10,7 @@ export default class Cup{
         this.size = {width: 80, height: 128};
         this.position = position;
         this.position.y = this.gameHeight - (this.size.height + 100);
+        this.full = false;
     }
 
     draw(context){
@@ -24,9 +25,8 @@ export default class Cup{
         context.restore();
 
         context.beginPath(); 
-         context.moveTo(this.game.can.position.x,this.game.can.position.y);
+        context.moveTo(this.game.can.position.x,this.game.can.position.y);
         context.lineTo(this.position.x, this.position.y);
-        // Make the line visible
         context.stroke();
     }
 
