@@ -18,7 +18,7 @@ export default class Cup{
     }
 
     draw(context){
-        if(this.spilling){
+        if(this.spilling && ((this.position.y - this.size.height) <= this.game.can.depth)){
             this.image = document.getElementById("img-spill");
         }
         context.save();
@@ -31,10 +31,10 @@ export default class Cup{
         );
         context.restore();
 
-        context.beginPath(); 
-        context.moveTo(this.position.x + (this.size.width/2),0);
-        context.lineTo(this.position.x + (this.size.width/2), this.position.y);
-        context.stroke();
+        // context.beginPath(); 
+        // context.moveTo(this.position.x + (this.size.width/2),0);
+        // context.lineTo(this.position.x + (this.size.width/2), this.position.y);
+        // context.stroke();
 
     }
 
