@@ -9,6 +9,8 @@ export default class Can{
         this.game = game;
 
         this.image = document.getElementById("img-can");
+        this.dropImage = document.getElementById("img-drop");
+        this.depth = 0;
 
         this.reset();
 
@@ -31,6 +33,7 @@ export default class Can{
         if([GAMESTATE.POURED, GAMESTATE.MISSED, GAMESTATE.WON, GAMESTATE.SPILLED, GAMESTATE.CONGRATS].includes(this.game.gameState)){
             this.image = document.getElementById("img-pour");
             this.size = {width: 128, height: 64};
+            this.pouring(context);
         } else {
             this.image = document.getElementById("img-can");
             this.size = {width: 64, height: 128};
@@ -49,9 +52,42 @@ export default class Can{
         this.position.x += this.speed.x;
         this.position.y += this.speed.y;
 
-        if(this.position.x + this.size.width > this.gameWidth || this.position.x < 0){
-            this.speed.x *= -1
+        if(this.game.gameState === GAMESTATE.RUNNING){
+            if(this.position.x + this.size.width > this.gameWidth || this.position.x < 0)
+                this.speed.x *= -1
+        } else {
+            this.speed = { x: 0, y: 0 };
+        }
+
+        const aCup = this.game.cups[0];
+        if([GAMESTATE.MISSED].includes(this.game.gameState)){            
+            this.pourOnGround(aCup);
+        }
+        if([GAMESTATE.POURED, GAMESTATE.WON, GAMESTATE.SPILLED, GAMESTATE.CONGRATS].includes(this.game.gameState)){
+            this.pourIntoCup(aCup)
         }
         
     }
+    pouring(context){
+        context.drawImage(
+            this.dropImage, 
+            this.game.can.position.x, 
+            this.game.can.position.y + 36, 
+            8, 
+            (this.depth)
+        );
+    }
+
+    pourIntoCup(aCup){
+        if((aCup.position.y - aCup.size.height) >= this.depth){
+            this.depth += 5;
+        }
+    }
+
+    pourOnGround(aCup){
+        if((aCup.position.y - aCup.size.height/3) >= this.depth){
+            this.depth += 5;
+        }
+    }
+
 }

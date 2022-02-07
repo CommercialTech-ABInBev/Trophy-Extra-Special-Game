@@ -7,6 +7,7 @@ export default class Score{
     }
 
     pour(){
+        this.game.can.depth = 0;
         let poured = false;
         let spilled = false;
 
@@ -14,9 +15,10 @@ export default class Score{
         console.log("Can Spot: ", canSpot);
 
         this.game.cups.map((cup) => {
-            const accurrancy = 10;
-            const cupX = (cup.position.x) + accurrancy;
-            const cupSpot = (cupX + cup.size.width) - accurrancy;
+            const leftError = 10;
+            const rightError = 20;
+            const cupX = (cup.position.x) + leftError;
+            const cupSpot = (cupX + cup.size.width) - rightError;
             console.log(`Expect region ${cupX} - ${cupSpot}`);
             if(canSpot >= cupX && canSpot <= cupSpot){
                 if(cup.full){

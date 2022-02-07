@@ -28,8 +28,9 @@ export default class Cup{
         // context.moveTo(this.game.can.position.x,this.game.can.position.y);
         // context.lineTo(this.position.x, this.position.y);
         // context.stroke();
+
     }
 
-    update(deltaTime){        
+    update(deltaTime){
     }
 }

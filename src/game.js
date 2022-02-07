@@ -36,8 +36,6 @@ export default class Game{
     }
 
     update(deltaTime){
-        if(this.gameState !== GAMESTATE.RUNNING) return;
-
         [...this.gameObjects].forEach((object) => {
             object.update(deltaTime)
         });
