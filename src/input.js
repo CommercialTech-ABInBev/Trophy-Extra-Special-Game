@@ -29,7 +29,11 @@ export default class InputHandler{
 
         let retryBtn = document.getElementById("img-retry");
         retryBtn.addEventListener("click", (e) => {
-            game.can.reset();
+            if([GAMESTATE.WON].includes(this.game.gameState)){
+                game.can.reset();
+            } else {
+                game.start();
+            }
             game.gameState = GAMESTATE.RUNNING;
         });
     }

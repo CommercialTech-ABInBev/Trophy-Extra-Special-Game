@@ -9,8 +9,11 @@ export default class Cup{
 
         this.size = {width: 80, height: 128};
         this.position = position;
-        this.position.y = this.gameHeight - (this.size.height + 100);
+        this.position.y = this.gameHeight - (this.size.height + 10);
         this.full = false;
+        this.filling = false;
+        this.fillingSize = 4;
+        this.imageFrame = 0;
     }
 
     draw(context){
@@ -32,5 +35,19 @@ export default class Cup{
     }
 
     update(deltaTime){
+        if(this.filling && ((this.position.y - this.size.height) <= this.game.can.depth)){
+            this.fill();
+        }
+    }
+
+    fill(){
+        this.imageFrame += 1;
+        const frame = parseInt(this.imageFrame);            
+        if(this.imageFrame > 0 && this.imageFrame <= this.fillingSize){
+            this.image = document.getElementById("img-cup"+frame);
+        } else {
+            this.imageFrame = 0;
+            this.filling = false;
+        }
     }
 }

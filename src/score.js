@@ -24,6 +24,7 @@ export default class Score{
                 if(cup.full){
                     spilled = true;
                 } else {
+                    cup.filling = true;
                     poured = true;
                     cup.full = true;
                 }

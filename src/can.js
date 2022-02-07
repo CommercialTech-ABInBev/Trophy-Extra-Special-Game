@@ -11,6 +11,7 @@ export default class Can{
         this.image = document.getElementById("img-can");
         this.dropImage = document.getElementById("img-drop");
         this.depth = 0;
+        this.pourSpeed = 10;
 
         this.reset();
 
@@ -73,20 +74,20 @@ export default class Can{
             this.dropImage, 
             this.game.can.position.x, 
             this.game.can.position.y + 36, 
-            8, 
+            4, 
             (this.depth)
         );
     }
 
     pourIntoCup(aCup){
         if((aCup.position.y - aCup.size.height) >= this.depth){
-            this.depth += 5;
+            this.depth += this.pourSpeed;
         }
     }
 
     pourOnGround(aCup){
         if((aCup.position.y - aCup.size.height/3) >= this.depth){
-            this.depth += 5;
+            this.depth += this.pourSpeed;
         }
     }
 
