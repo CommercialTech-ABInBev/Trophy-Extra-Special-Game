@@ -17,6 +17,10 @@ export default class Game{
         this.retryButton = new RetryButton(this);
 
         this.can = new Can(this);
+
+        this.cupWidth = 80;
+        this.cupHeight = 128;
+
         this.cups = [
             new Cup(this, {x: (this.gameWidth/3.5)}),
             new Cup(this, {x: (this.gameWidth/1.9)}),
@@ -31,9 +35,9 @@ export default class Game{
         this.can.reset();
 
         this.cups = [
-            new Cup(this, {x: (this.gameWidth/3.5)}),
-            new Cup(this, {x: (this.gameWidth/1.9)}),
-            new Cup(this, {x: (this.gameWidth/1.3)}),
+            new Cup(this, {x: (this.cupWidth) - (this.cupWidth/2)}),
+            new Cup(this, {x: ((this.gameWidth/2 - (this.cupWidth/2)))}),
+            new Cup(this, {x: (this.gameWidth - this.cupWidth) - (this.cupWidth/2)}),
         ];
         this.gameObjects = [this.can,this.retryButton,...this.cups,this.stateManager];
 

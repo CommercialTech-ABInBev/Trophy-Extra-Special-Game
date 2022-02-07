@@ -7,7 +7,7 @@ export default class Cup{
 
         this.image = document.getElementById("img-cup");
 
-        this.size = {width: 80, height: 128};
+        this.size = {width: game.cupWidth, height: game.cupHeight};
         this.position = position;
         this.position.y = this.gameHeight - (this.size.height + 10);
         this.full = false;
@@ -31,10 +31,10 @@ export default class Cup{
         );
         context.restore();
 
-        // context.beginPath(); 
-        // context.moveTo(this.game.can.position.x,this.game.can.position.y);
-        // context.lineTo(this.position.x, this.position.y);
-        // context.stroke();
+        context.beginPath(); 
+        context.moveTo(this.position.x + (this.size.width/2),0);
+        context.lineTo(this.position.x + (this.size.width/2), this.position.y);
+        context.stroke();
 
     }
 
