@@ -23,6 +23,7 @@ export default class Score{
             if(canSpot >= cupX && canSpot <= cupSpot){
                 if(cup.full){
                     spilled = true;
+                    cup.spilling = true;
                 } else {
                     cup.filling = true;
                     poured = true;

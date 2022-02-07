@@ -14,9 +14,13 @@ export default class Cup{
         this.filling = false;
         this.fillingSize = 4;
         this.imageFrame = 0;
+        this.spilling = false;
     }
 
     draw(context){
+        if(this.spilling){
+            this.image = document.getElementById("img-spill");
+        }
         context.save();
         context.drawImage(
             this.image, 
