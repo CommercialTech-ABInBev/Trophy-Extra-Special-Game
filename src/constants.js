@@ -1,5 +1,5 @@
 export const GAMESTATE = {
-    PAUSED: 0,
+    INIT: 0,
     RUNNING: 1,
     MENU: 2,
     POURED  : 3,

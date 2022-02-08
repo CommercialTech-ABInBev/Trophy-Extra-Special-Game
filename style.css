@@ -20,9 +20,37 @@ body{
 	display: none;
 }
 
+#start-btn.show{
+	position: absolute;
+	top: 20px;
+	right: 15px;
+}
+
 #img-retry.show{
 	width: 48px;
 	position: absolute;
 	top: 20px;
 	right: 15px;
+}
+
+#app.show{
+	position: absolute;
+	width: 100%;
+	top: 0px;
+	right: 0px;
+	background: #e90303;
+	color: #ffffff;
+}
+.card-dark{
+	background: #22222e;
+	height: 100vh;
+}
+
+input {
+	height: 50px;
+	background: #31313b !important;
+	color: #ffffff !important;
+}
+.btn-primary,.bg-primary{
+	background: #a7873c;
 }

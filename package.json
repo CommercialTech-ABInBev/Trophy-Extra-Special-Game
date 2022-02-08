@@ -14,5 +14,7 @@
   "devDependencies": {
     "parcel": "1.12.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "firebase": "^9.4.1"
+  }
 }

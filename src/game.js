@@ -4,6 +4,7 @@ import RetryButton from '/src/retryButton';
 import InputHandler from '/src/input';
 import * as Constants from '/src/constants';
 import StateManager from '/src/stateManager'
+import App from '/src/app';
 
 const GAMESTATE = Constants.GAMESTATE;
 
@@ -20,15 +21,16 @@ export default class Game{
 
         this.cupWidth = 80;
         this.cupHeight = 128;
-
-        this.cups = [
-            new Cup(this, {x: (this.gameWidth/3.5)}),
-            new Cup(this, {x: (this.gameWidth/1.9)}),
-            new Cup(this, {x: (this.gameWidth/1.3)}),
-        ];
+        this.cups = [];
         
+        this.app = new App(this);
+        this.appView = document.getElementById("app");
+
+        this.user = {};
+
         new InputHandler(this);        
-        this.start();
+        this.menu();
+        // this.start();
     }
 
     start(){
@@ -41,7 +43,15 @@ export default class Game{
         ];
         this.gameObjects = [this.can,this.retryButton,...this.cups,this.stateManager];
 
-        this.gameState = GAMESTATE.RUNNING;
+        this.gameState = GAMESTATE.INIT;
+        this.appView.classList.remove("show");
+        this.appView.innerHTML = "";
+    }
+
+    menu(){
+        this.gameState = GAMESTATE.MENU;
+        this.appView.classList.add("show");
+        this.app.menu()
     }
 
     update(deltaTime){

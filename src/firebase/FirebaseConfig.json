@@ -1,0 +1,10 @@
+{
+    "apiKey": "AIzaSyBBd_eakN8EfOBtSKwI7C_QRzIYiUnSQ-c",
+    "authDomain": "pourbeer.firebaseapp.com",
+    "databaseURL": "https://pourbeer-default-rtdb.firebaseio.com",
+    "projectId": "pourbeer",
+    "storageBucket": "pourbeer.appspot.com",
+    "messagingSenderId": "58670711957",
+    "appId": "1:58670711957:web:e63891519aa74f4171079c",
+    "measurementId": "G-6E741SDJXS"
+}

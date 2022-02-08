@@ -27,6 +27,21 @@ export default class InputHandler{
             }
         });
 
+        let startBtn = document.getElementById("start-btn");
+        startBtn.addEventListener("click", (e) => {
+            game.start();
+            game.gameState = GAMESTATE.RUNNING;
+            startBtn.classList.remove("show");
+        });
+
+        let continueBtn = document.getElementById("continue-btn");
+        continueBtn.addEventListener("click", (e) => {
+            if([GAMESTATE.WON].includes(this.game.gameState)){
+                game.can.reset();
+            }
+            continueBtn.classList.remove("show");
+        });
+
         let retryBtn = document.getElementById("img-retry");
         retryBtn.addEventListener("click", (e) => {
             if([GAMESTATE.WON].includes(this.game.gameState)){
