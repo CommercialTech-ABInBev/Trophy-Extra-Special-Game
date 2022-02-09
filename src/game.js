@@ -1,6 +1,5 @@
 import Can from '/src/can';
 import Cup from '/src/cup';
-import RetryButton from '/src/retryButton';
 import InputHandler from '/src/input';
 import * as Constants from '/src/constants';
 import StateManager from '/src/stateManager'
@@ -15,7 +14,10 @@ export default class Game{
         this.gameObjects = [];
         this.gameState = GAMESTATE.MENU;
         this.stateManager = new StateManager(this);
-        this.retryButton = new RetryButton(this);
+
+        this.appView = document.getElementById("app");
+        this.startBtn = document.getElementById("start-btn");
+        this.continueBtn = document.getElementById("continue-btn");
 
         this.can = new Can(this);
 
@@ -24,8 +26,6 @@ export default class Game{
         this.cups = [];
         
         this.app = new App(this);
-        this.appView = document.getElementById("app");
-        this.startBtn = document.getElementById("start-btn");
 
         this.user = {};
 
@@ -42,7 +42,7 @@ export default class Game{
             new Cup(this, {x: ((this.gameWidth/2 - (this.cupWidth/2)))}),
             new Cup(this, {x: (this.gameWidth - this.cupWidth) - (this.cupWidth/2)}),
         ];
-        this.gameObjects = [this.can,this.retryButton,...this.cups,this.stateManager];
+        this.gameObjects = [this.can,...this.cups,this.stateManager];
 
         this.gameState = GAMESTATE.INIT;
         this.appView.classList.remove("show");

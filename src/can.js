@@ -20,7 +20,7 @@ export default class Can{
     }
 
     reset(){
-        this.game.retryButton.visible = false;
+        this.game.continueBtn.classList.remove("show");
         this.position = { x: this.gameWidth/2, y: this.gameHeight/5 };
         this.speed = { x: 10, y: 0 };
     }

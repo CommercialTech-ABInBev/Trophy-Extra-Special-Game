@@ -12,7 +12,7 @@ export default class InputHandler{
         canvas.addEventListener("click", (e) => {
             if(game.gameState === GAMESTATE.RUNNING){
                 game.gameState = GAMESTATE.POURED;
-                game.retryButton.visible = true;
+                game.continueBtn.classList.add("show");
 
                 const {poured, spilled} = this.score.pour();
 
@@ -34,22 +34,14 @@ export default class InputHandler{
             startBtn.classList.remove("show");
         });
 
-        let continueBtn = document.getElementById("continue-btn");
-        continueBtn.addEventListener("click", (e) => {
+        game.continueBtn.addEventListener("click", (e) => {
             if([GAMESTATE.WON].includes(this.game.gameState)){
                 game.can.reset();
-            }
-            continueBtn.classList.remove("show");
-        });
-
-        let retryBtn = document.getElementById("img-retry");
-        retryBtn.addEventListener("click", (e) => {
-            if([GAMESTATE.WON].includes(this.game.gameState)){
-                game.can.reset();
+                game.gameState = GAMESTATE.RUNNING;
             } else {
                 game.start();
             }
-            game.gameState = GAMESTATE.RUNNING;
+            game.continueBtn.classList.remove("show");
         });
     }
 }
