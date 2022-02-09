@@ -25,6 +25,7 @@ export default class Game{
         
         this.app = new App(this);
         this.appView = document.getElementById("app");
+        this.startBtn = document.getElementById("start-btn");
 
         this.user = {};
 
@@ -46,6 +47,7 @@ export default class Game{
         this.gameState = GAMESTATE.INIT;
         this.appView.classList.remove("show");
         this.appView.innerHTML = "";
+        this.startBtn.classList.add("show");
     }
 
     menu(){

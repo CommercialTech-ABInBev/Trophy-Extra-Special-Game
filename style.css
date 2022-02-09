@@ -2,16 +2,18 @@ body{
 	width: 100%;
 	height: 100vh;
 	overflow: hidden;
-	/* background:#131a7a; */
-    /* color: #ffffff; */
+	background: #31313b url(assets/images/bg.png) no-repeat center;
+	background-size: cover;
+    color: #ffffff;
 }
 #game-screen-container{
+	overflow: hidden;
     padding: 5px;
 }
 #game-screen{
-	border: 1px solid #e90303;
     position: absolute;
-    background: #ca8b0e;
+	width: 100%;
+	height: 100vh;
     top: 0;
     left: 0;
 }
@@ -20,6 +22,9 @@ body{
 	display: none;
 }
 
+#start-btn,#img-retry,#start-btn,#continue-btn{
+	display: none;
+}
 #start-btn.show{
 	position: absolute;
 	top: 20px;
@@ -36,14 +41,20 @@ body{
 #app.show{
 	position: absolute;
 	width: 100%;
+	height: 100vh;
 	top: 0px;
 	right: 0px;
-	background: #e90303;
+	background: rgba(0, 0, 0, 0.5);
+	background-size: cover;
 	color: #ffffff;
 }
+.show{
+	display: block !important;
+}
 .card-dark{
-	background: #22222e;
-	height: 100vh;
+	background: #22222ed7;
+	margin: 20px 10px;
+	height: 90vh;
 }
 
 input {
