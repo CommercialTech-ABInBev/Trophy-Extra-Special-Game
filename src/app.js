@@ -63,12 +63,25 @@ export default class App{
         this.addHomeButton();
     }
     renderLogin(){
-        this.game.appView.replaceWith(LoginTemplate((x)=>{
-            this.actions[x.action](x.data)
-            return;
-        }));
-        this.renderHome();
-        
+        var template = document.getElementById('login-template');
+
+        // Clone the new row and insert it into the table
+        var clone = template.content.cloneNode(true);
+
+        this.game.appView.replaceWith(clone);
+        const btn = template.content.firstElementChild.clone(true);
+        btn.addEventListener("click", (e) => {
+            alert("Login");
+        });
+        // document.getElementById("login-btn").addEventListener("click", (e) => {
+        //     e.preventDefault();
+        //     const emailInput = document.getElementById("email-address")
+        //     console.log(emailInput.valule)
+        // });        
+        // const loginTemplate = LoginTemplate(this, (x)=>{
+        //     this.actions[x.action](x.data)
+        //     return;
+        // });
     }
 
     renderOTP(){

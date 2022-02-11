@@ -1,4 +1,4 @@
-export const LoginTemplate = (callBack) => {
+export const LoginTemplate = (app, callBack) => {
     const container = document.createElement("div");
     container.classList.add("container-fluid")
 
@@ -41,9 +41,10 @@ export const LoginTemplate = (callBack) => {
     cancelButton.classList.add("mx-2")
     cancelButton.addEventListener("click", function(e){
         e.preventDefault();
+        // container.style.display="none";
         callBack({
             action: "CANCEL", 
-        });
+        });    
     })
     buttonControl.appendChild(cancelButton);
 
