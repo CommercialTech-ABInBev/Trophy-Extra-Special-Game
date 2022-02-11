@@ -47,6 +47,13 @@ body{
 	right: 15px;
 	display: block !important;
 }
+#login-template,#register-template,#home-template{
+	display: none;
+}
+.render{
+	display: block !important;
+}
+
 .card-dark{
 	background: #22222ed7;
 	margin: 20px 10px;

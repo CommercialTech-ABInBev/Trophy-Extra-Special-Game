@@ -9,7 +9,7 @@ export default class Cup{
 
         this.size = {width: game.cupWidth, height: game.cupHeight};
         this.position = position;
-        this.position.y = this.gameHeight - (this.size.height + 50);
+        this.position.y = this.gameHeight - (this.size.height + 100);
         this.full = false;
         this.filling = false;
         this.fillingSize = 4;
