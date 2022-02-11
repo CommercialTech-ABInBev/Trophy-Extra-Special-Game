@@ -9,9 +9,9 @@ export default class App{
 
         this.userService = new UserService();
 
-        // this.userService.getUsers(function(data) {
-        //     console.log(data);
-        // })
+        this.userService.getUsers(function(data) {
+            console.log(data);
+        })
     }
 
     renderInit(){
@@ -45,6 +45,28 @@ export default class App{
         this.renderInit();
         document.querySelector("#register-template").classList.add("render");
         this.addNavButton("#register-template","HOME");
+
+        document.getElementById("register-btn").addEventListener("click", (e) => {
+            e.preventDefault();
+            const form = document.querySelector("#register-template")
+            const nameInput = form.querySelector("#fullname").value
+            const emailInput = form.querySelector("#email-address").value
+            const phoneNumberInput = form.querySelector("#phone-number").value
+            const cityInput = form.querySelector("#city").value
+            const stateInput = form.querySelector("#state").value
+            if(nameInput && emailInput && phoneNumberInput && cityInput && stateInput){
+                console.log({
+                    fullName: nameInput,
+                    emailAddress: emailInput,
+                    phoneAddress: phoneNumberInput,
+                    city: cityInput,
+                    state: stateInput,
+                })    
+            } else {
+                alert("All fields are required!");                
+            }
+        });        
+
     }
     renderLogin(){
         this.renderInit();
