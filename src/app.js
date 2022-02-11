@@ -10,11 +10,23 @@ const GAMESTATE = Constants.GAMESTATE;
 export default class App{
     constructor(game){
         this.game = game;
+
+        this.actions = {
+            "CANCEL": (x) => {
+                console.log("Back")
+                this.renderHome();
+            },
+            "CONTINUE": (x) => {
+                console.log("Login: ", x);
+                this.game.appView.replaceWith();
+                this.game.start();
+            }
+        }
         this.userService = new UserService();
 
-        this.userService.getUsers(function(data) {
-            console.log(data);
-        })
+        // this.userService.getUsers(function(data) {
+        //     console.log(data);
+        // })
     }
 
     register(registerUserModel){
@@ -51,11 +63,12 @@ export default class App{
         this.addHomeButton();
     }
     renderLogin(){
-        this.game.appView.innerHTML = LoginTemplate;
-        this.game.appView.querySelector("#login-btn").addEventListener("click", (e) => {
-            this.renderOTP();
-        });
-        this.addHomeButton();
+        this.game.appView.replaceWith(LoginTemplate((x)=>{
+            this.actions[x.action](x.data)
+            return;
+        }));
+        this.renderHome();
+        
     }
 
     renderOTP(){
