@@ -20,8 +20,13 @@ export default class App{
         document.querySelector("#login-template").classList.remove("render");
     }
 
-    register(registerUserModel){
-        this.userService.createUser(registerUserModel);
+    register(model){
+        if(this.userService.getUserByEmail(model.emailAddress)){
+            return false;
+        } else {
+            this.userService.createUser(model);
+            return true;    
+        }
     }
     login(email){
         return this.userService.getUserByEmail(email);
@@ -60,15 +65,18 @@ export default class App{
             const stateInput = form.querySelector("#state").value
 
             if(nameInput && emailInput && phoneNumberInput && cityInput && stateInput){
-                this.register({
+                if(this.register({
                     fullName: nameInput.trim(),
                     emailAddress: emailInput.trim(),
                     phoneAddress: phoneNumberInput.trim(),
                     city: cityInput.trim(),
                     state: stateInput.trim(),
-                })    
-                this.popUpToast("bg-success", "Oh great! Your registration is successful 😀");
-                this.renderLogin();
+                })){
+                    this.popUpToast("bg-success", "Oh great! Your registration is successful 😀");
+                    this.renderLogin();    
+                } else {
+                    this.popUpToast("bg-danger", "Email address has been used! 🐞");
+                }
             } else {
                 this.popUpToast("bg-danger", "All fields are required! 🐞");
             }
@@ -91,7 +99,7 @@ export default class App{
                     this.renderInit();
                     this.game.start();
                 } else {
-                    this.popUpToast("bg-warning", "Invalid email address! 🐞")
+                    this.popUpToast("bg-danger", "Invalid email address! 🐞")
                 }
             } else {
                 this.popUpToast("bg-danger", "Your email address is required! 🐞");

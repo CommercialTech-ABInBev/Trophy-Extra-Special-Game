@@ -23,6 +23,7 @@ body{
 }
 
 #start-btn,#img-retry,#start-btn,#continue-btn{
+	margin-top: 80px;
 	display: none;
 }
 #start-btn.show{
