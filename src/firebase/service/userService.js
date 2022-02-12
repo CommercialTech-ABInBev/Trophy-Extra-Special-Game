@@ -11,6 +11,14 @@ export default class UserService {
         });
     }
 
+    getUserByEmail(email){
+        let user = "";
+        this.repository.getAllUsers(function (data){
+            user = data.find((u) => { return u.emailAddress === email})
+        });
+        return user;
+    }
+
     getUser(id){
         this.repository.getOneUser(id, function (data){
             console.log("User: ", data);

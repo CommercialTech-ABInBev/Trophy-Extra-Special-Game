@@ -23,6 +23,9 @@ export default class App{
     register(registerUserModel){
         this.userService.createUser(registerUserModel);
     }
+    login(email){
+        return this.userService.getUserByEmail(email);
+    }
 
     menu(){
         this.renderHome();
@@ -72,6 +75,7 @@ export default class App{
         });        
 
     }
+
     renderLogin(){
         this.renderInit();
         document.querySelector("#login-template").classList.add("render");
@@ -82,9 +86,13 @@ export default class App{
             const emailInput = form.querySelector("#email-address").value
 
             if(emailInput){
-                this.popUpToast("bg-success", "Booze! You're welcome! 😀");
-                this.renderInit();
-                this.game.start();
+                if(this.login(emailInput.trim())){
+                    this.popUpToast("bg-success", "Booze! You're welcome! 😀");
+                    this.renderInit();
+                    this.game.start();
+                } else {
+                    this.popUpToast("bg-warning", "Invalid email address! 🐞")
+                }
             } else {
                 this.popUpToast("bg-danger", "Your email address is required! 🐞");
             }
