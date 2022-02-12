@@ -68,3 +68,11 @@ input {
 .btn-primary,.bg-primary{
 	background: #a7873c;
 }
+
+#notification {
+	display: block !important;	
+	z-index: 5000 !important;
+}
+.toast{
+	width: 256px;
+}

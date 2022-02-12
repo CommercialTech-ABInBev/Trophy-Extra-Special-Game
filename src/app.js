@@ -41,6 +41,7 @@ export default class App{
             this.renderLogin();
         });
     }
+    
     renderRegister(){
         this.renderInit();
         document.querySelector("#register-template").classList.add("render");
@@ -54,16 +55,19 @@ export default class App{
             const phoneNumberInput = form.querySelector("#phone-number").value
             const cityInput = form.querySelector("#city").value
             const stateInput = form.querySelector("#state").value
+
             if(nameInput && emailInput && phoneNumberInput && cityInput && stateInput){
-                console.log({
-                    fullName: nameInput,
-                    emailAddress: emailInput,
-                    phoneAddress: phoneNumberInput,
-                    city: cityInput,
-                    state: stateInput,
+                this.register({
+                    fullName: nameInput.trim(),
+                    emailAddress: emailInput.trim(),
+                    phoneAddress: phoneNumberInput.trim(),
+                    city: cityInput.trim(),
+                    state: stateInput.trim(),
                 })    
+                this.popUpToast("bg-success", "Oh great! Your registration is successful 😀");
+                this.renderLogin();
             } else {
-                alert("All fields are required!");                
+                this.popUpToast("bg-danger", "All fields are required! 🐞");
             }
         });        
 
@@ -74,10 +78,16 @@ export default class App{
 
         document.getElementById("login-btn").addEventListener("click", (e) => {
             e.preventDefault();
-            const emailInput = document.getElementById("email-address")
-            console.log(emailInput.value)
-            this.renderInit();
-            this.game.start();
+            const form = document.querySelector("#login-template")
+            const emailInput = form.querySelector("#email-address").value
+
+            if(emailInput){
+                this.popUpToast("bg-success", "Booze! You're welcome! 😀");
+                this.renderInit();
+                this.game.start();
+            } else {
+                this.popUpToast("bg-danger", "Your email address is required! 🐞");
+            }
         });        
         this.addNavButton("#login-template","HOME");
     }
@@ -107,5 +117,21 @@ export default class App{
                     break;
             }
         });
+    }
+
+    popUpToast(color="bg-primary", text="Drink!", time=3000){
+        document.querySelector("#notification").innerHTML = `
+        <div class="toast show align-items-center text-white ${color} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${text}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        `;
+        setTimeout(() => {
+            document.querySelector("#notification").innerHTML = "";
+        },time)
     }
 }
