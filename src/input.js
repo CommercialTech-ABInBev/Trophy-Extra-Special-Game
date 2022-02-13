@@ -23,25 +23,27 @@ export default class InputHandler{
                 } else {
                     this.score.miss();
                 }
-
+                game.app.renderResult(game.gameState);
             }
         });
 
-        let startBtn = document.getElementById("start-btn");
-        startBtn.addEventListener("click", (e) => {
-            game.start();
-            game.gameState = GAMESTATE.RUNNING;
-            startBtn.classList.remove("show");
+        game.startBtn.addEventListener("click", (e) => {
+            this.play();
         });
 
         game.continueBtn.addEventListener("click", (e) => {
             if([GAMESTATE.WON].includes(this.game.gameState)){
-                game.can.reset();
-                game.gameState = GAMESTATE.RUNNING;
-            } else {
-                game.start();
+                this.play();
             }
-            game.continueBtn.classList.remove("show");
         });
+    }
+
+    play(){
+        document.getElementById("app").classList.add("hide")
+        this.game.can.reset();
+        this.game.app.renderInit();
+        this.game.gameState = GAMESTATE.RUNNING;
+        this.game.startBtn.classList.add("hide");
+        this.game.continueBtn.classList.add("hide");
     }
 }

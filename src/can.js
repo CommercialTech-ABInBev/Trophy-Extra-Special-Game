@@ -20,7 +20,7 @@ export default class Can{
     }
 
     reset(){
-        this.game.continueBtn.classList.remove("show");
+        this.game.gameState = GAMESTATE.INIT;
         this.position = { x: this.gameWidth/2, y: this.gameHeight/5 };
         this.speed = { x: 10, y: 0 };
     }
@@ -72,9 +72,9 @@ export default class Can{
     pouring(context){
         context.drawImage(
             this.dropImage, 
-            this.game.can.position.x, 
+            this.game.can.position.x - 8, 
             this.game.can.position.y + 36, 
-            4, 
+            8, 
             (this.depth)
         );
     }

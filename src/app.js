@@ -1,5 +1,6 @@
 import UserService from '/src/firebase/service/userService';
-import images from "../assets/images/*.gif";
+import gif from "../assets/images/*.gif";
+import png from "../assets/images/*.png";
 import * as Constants from '/src/constants';
 const GAMESTATE = Constants.GAMESTATE;
 
@@ -9,9 +10,9 @@ export default class App{
 
         this.userService = new UserService();
 
-        this.userService.getUsers(function(data) {
-            console.log(data);
-        })
+        // this.userService.getUsers(function(data) {
+        //     console.log(data);
+        // })
     }
 
     renderInit(){
@@ -52,36 +53,49 @@ export default class App{
         });
     }
     
-    renderResult(state){
+    renderResult(state = this.game.gameState){
         this.renderInit();
         const result = document.querySelector("#result-template");
-        const leaderboardBtn = document.querySelector("#leadboard-btn");
+        const leaderboardBtn = document.querySelector("#leaderboard-btn");
+        const startBtn = document.querySelector("#start-btn");
+        const continueBtn = document.querySelector("#continue-btn");
 
         leaderboardBtn.classList.add("hide")
+        startBtn.classList.add("hide")
+        continueBtn.classList.add("hide")
+        result.querySelector("#result-img").classList.add("hide");
         result.classList.add("render");
+        
+        result.querySelector("#result-title").innerHTML = "";
+        result.querySelector("#result-subtitle").innerHTML = "";
+        result.querySelector("#result-img").src = png["can"];
 
         switch(state){
+            case GAMESTATE.INIT:
+                 startBtn.classList.remove("hide");
+                break;
             case GAMESTATE.MISSED:
                 result.querySelector("#result-title").innerHTML = "Missed";
                 result.querySelector("#result-subtitle").innerHTML = "Awk!";
-                result.querySelector("#result-img").src = images["missed"];
+                result.querySelector("#result-img").src = gif["missed"];
                 leaderboardBtn.classList.remove("hide")
                 break;
             case GAMESTATE.WON:
                 result.querySelector("#result-title").innerHTML = "Won";
                 result.querySelector("#result-subtitle").innerHTML = "Awesome!";
-                result.querySelector("#result-img").src = images["won"];
+                result.querySelector("#result-img").src = gif["won"];
+                continueBtn.classList.remove("hide");
                 break;
             case GAMESTATE.SPILLED:
                 result.querySelector("#result-title").innerHTML = "Spilled";
                 result.querySelector("#result-subtitle").innerHTML = "Oop!";
-                result.querySelector("#result-img").src = images["spilled"];
+                result.querySelector("#result-img").src = gif["spilled"];
                 leaderboardBtn.classList.remove("hide")
                 break;
             case GAMESTATE.CONGRATS:
                 result.querySelector("#result-title").innerHTML = "Congratulations";
                 result.querySelector("#result-subtitle").innerHTML = "Wow! You sure are skilled, and won for yourself 2 cans of trophy beer";
-                result.querySelector("#result-img").src = images["congrats"];
+                result.querySelector("#result-img").src = gif["congrats"];
                 leaderboardBtn.classList.remove("hide")
                 break;
             default:
@@ -89,8 +103,15 @@ export default class App{
                 break;
         }
 
+        if([GAMESTATE.MISSED, GAMESTATE.WON, GAMESTATE.SPILLED, GAMESTATE.CONGRATS].includes(state)){
+            result.querySelector("#result-img").classList.remove("hide");
+        }
+        result.querySelector("#result-img").classList.remove("hide");
+        
         leaderboardBtn.addEventListener("click", (e) => {
             e.preventDefault();
+            this.game.gameState = GAMESTATE.INIT;
+            this.game.start();
         });
     }
 
@@ -140,7 +161,6 @@ export default class App{
             if(emailInput){
                 if(this.login(emailInput.trim())){
                     this.popUpToast("bg-success", "Booze! You're welcome! 😀");
-                    this.renderInit();
                     this.game.start();
                 } else {
                     this.popUpToast("bg-danger", "Invalid email address! 🐞")
@@ -162,7 +182,7 @@ export default class App{
     }
     
     addNavButton(id, template){
-        document.querySelector(id).querySelector("#back-btn").addEventListener("click", (e) => {
+        document.querySelector(id).querySelector(".back-btn").addEventListener("click", (e) => {
             switch(template){
                 case "LOGIN":
                     this.renderLogin();

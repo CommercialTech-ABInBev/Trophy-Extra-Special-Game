@@ -31,11 +31,11 @@ export default class Game{
 
         new InputHandler(this);        
         this.menu();
-        // this.start();
     }
 
     start(){
         this.can.reset();
+        this.app.renderResult();
 
         this.cups = [
             new Cup(this, {x: (this.cupWidth) - (this.cupWidth/2)}),
@@ -44,17 +44,15 @@ export default class Game{
         ];
         this.gameObjects = [this.can,...this.cups,this.stateManager];
 
-        this.gameState = GAMESTATE.INIT;
-        this.appView.classList.remove("show");
-        this.appView.innerHTML = "";
-        this.startBtn.classList.add("show");
+        // this.appView.classList.remove("show");
+        // this.appView.innerHTML = "";
     }
 
     menu(){
         this.gameState = GAMESTATE.MENU;
-        this.appView.classList.add("show");
+        this.appView.classList.remove("hide");
         this.app.menu();
-        this.app.renderResult(GAMESTATE.WON);
+        this.start();
     }
 
     update(deltaTime){
