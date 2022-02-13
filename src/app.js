@@ -18,6 +18,7 @@ export default class App{
         document.querySelector("#home-template").classList.remove("render");
         document.querySelector("#register-template").classList.remove("render");
         document.querySelector("#login-template").classList.remove("render");
+        document.querySelector("#result-template").classList.remove("render");
     }
 
     register(model){
@@ -28,6 +29,7 @@ export default class App{
             return true;    
         }
     }
+    
     login(email){
         return this.userService.getUserByEmail(email);
     }
@@ -50,6 +52,15 @@ export default class App{
         });
     }
     
+    renderResult(){
+        this.renderInit();
+        document.querySelector("#result-template").classList.add("render");
+
+        document.querySelector("#leadboard-btn").addEventListener("click", (e) => {
+            e.preventDefault();
+        });
+    }
+
     renderRegister(){
         this.renderInit();
         document.querySelector("#register-template").classList.add("render");

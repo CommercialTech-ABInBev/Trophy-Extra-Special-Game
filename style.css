@@ -48,16 +48,49 @@ body{
 	right: 15px;
 	display: block !important;
 }
-#login-template,#register-template,#home-template{
+.forms .row{
 	display: none;
 }
 .render{
 	display: block !important;
 }
 
+.img-result{
+	width: 128px;
+	margin: 32px;
+	-webkit-animation: fadeIn ease 5s;
+	-moz-animation: fadeIn ease 5s;
+	-o-animation: fadeIn ease 5s;
+	-ms-animation: fadeIn ease 5s;
+	animation: fadeIn ease 5s;
+	transition: 0.5s;
+}
+
+@keyframes fadeIn {
+	0% {opacity:0;}
+	100% {opacity:1;}
+}
+@-moz-keyframes fadeIn {
+	0% {opacity:0;}
+	100% {opacity:1;}
+}
+@-webkit-keyframes fadeIn {
+	0% {opacity:0;}
+	100% {opacity:1;}
+}
+@-o-keyframes fadeIn {
+	0% {opacity:0;}
+	100% {opacity:1;}
+}
+@-ms-keyframes fadeIn {
+	0% {opacity:0;}
+	100% {opacity:1;}
+}
+
 .card-dark{
 	background: #22222ed7;
 	margin: 20px 10px;
+	padding: 20% 0px !important;
 	height: 90vh;
 }
 
@@ -65,9 +98,6 @@ input {
 	height: 50px;
 	background: #31313b !important;
 	color: #ffffff !important;
-}
-.btn-primary,.bg-primary{
-	background: #a7873c;
 }
 
 #notification {
