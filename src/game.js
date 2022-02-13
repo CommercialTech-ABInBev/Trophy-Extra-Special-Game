@@ -53,8 +53,8 @@ export default class Game{
     menu(){
         this.gameState = GAMESTATE.MENU;
         this.appView.classList.add("show");
-        this.app.menu()
-        this.app.renderResult();
+        this.app.menu();
+        this.app.renderResult(GAMESTATE.WON);
     }
 
     update(deltaTime){

@@ -1,5 +1,5 @@
 import UserService from '/src/firebase/service/userService';
-
+import images from "../assets/images/*.gif";
 import * as Constants from '/src/constants';
 const GAMESTATE = Constants.GAMESTATE;
 
@@ -29,7 +29,7 @@ export default class App{
             return true;    
         }
     }
-    
+
     login(email){
         return this.userService.getUserByEmail(email);
     }
@@ -52,11 +52,44 @@ export default class App{
         });
     }
     
-    renderResult(){
+    renderResult(state){
         this.renderInit();
-        document.querySelector("#result-template").classList.add("render");
+        const result = document.querySelector("#result-template");
+        const leaderboardBtn = document.querySelector("#leadboard-btn");
 
-        document.querySelector("#leadboard-btn").addEventListener("click", (e) => {
+        leaderboardBtn.classList.add("hide")
+        result.classList.add("render");
+
+        switch(state){
+            case GAMESTATE.MISSED:
+                result.querySelector("#result-title").innerHTML = "Missed";
+                result.querySelector("#result-subtitle").innerHTML = "Awk!";
+                result.querySelector("#result-img").src = images["missed"];
+                leaderboardBtn.classList.remove("hide")
+                break;
+            case GAMESTATE.WON:
+                result.querySelector("#result-title").innerHTML = "Won";
+                result.querySelector("#result-subtitle").innerHTML = "Awesome!";
+                result.querySelector("#result-img").src = images["won"];
+                break;
+            case GAMESTATE.SPILLED:
+                result.querySelector("#result-title").innerHTML = "Spilled";
+                result.querySelector("#result-subtitle").innerHTML = "Oop!";
+                result.querySelector("#result-img").src = images["spilled"];
+                leaderboardBtn.classList.remove("hide")
+                break;
+            case GAMESTATE.CONGRATS:
+                result.querySelector("#result-title").innerHTML = "Congratulations";
+                result.querySelector("#result-subtitle").innerHTML = "Wow! You sure are skilled, and won for yourself 2 cans of trophy beer";
+                result.querySelector("#result-img").src = images["congrats"];
+                leaderboardBtn.classList.remove("hide")
+                break;
+            default:
+                leaderboardBtn.classList.remove("hide")
+                break;
+        }
+
+        leaderboardBtn.addEventListener("click", (e) => {
             e.preventDefault();
         });
     }
