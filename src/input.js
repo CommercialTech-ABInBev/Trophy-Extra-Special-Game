@@ -12,7 +12,6 @@ export default class InputHandler{
         canvas.addEventListener("click", (e) => {
             if(game.gameState === GAMESTATE.RUNNING){
                 game.gameState = GAMESTATE.POURED;
-                game.continueBtn.classList.add("show");
 
                 const {poured, spilled} = this.score.pour();
 
