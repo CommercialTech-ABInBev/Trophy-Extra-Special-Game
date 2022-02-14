@@ -43,16 +43,12 @@ export default class Game{
             new Cup(this, {x: (this.gameWidth - this.cupWidth) - (this.cupWidth/2)}),
         ];
         this.gameObjects = [this.can,...this.cups,this.stateManager];
-
-        // this.appView.classList.remove("show");
-        // this.appView.innerHTML = "";
     }
 
     menu(){
         this.gameState = GAMESTATE.MENU;
         this.appView.classList.remove("hide");
         this.app.menu();
-        this.start();
     }
 
     update(deltaTime){

@@ -38,13 +38,13 @@ body{
 	background-size: cover;
 	color: #ffffff;
 }
-/* .show{
+.show{
 	position: absolute;
 	top: 20px;
 	right: 15px;
 	display: block !important;
-} */
-.forms .row{
+}
+.forms .page{
 	display: none;
 }
 .render{
@@ -55,7 +55,7 @@ body{
 }
 
 .img-result{
-	width: 128px;
+	width: 96px;
 	margin: 32px;
 	-webkit-animation: fadeIn ease 2s;
 	-moz-animation: fadeIn ease 2s;

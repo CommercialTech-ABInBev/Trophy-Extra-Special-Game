@@ -117,7 +117,8 @@ export default class App{
 
     renderRegister(){
         this.renderInit();
-        document.querySelector("#register-template").classList.add("render");
+        const registerDOM = document.querySelector("#register-template");
+        registerDOM.classList.add("render");
         this.addNavButton("#register-template","HOME");
 
         document.getElementById("register-btn").addEventListener("click", (e) => {
@@ -151,7 +152,8 @@ export default class App{
 
     renderLogin(){
         this.renderInit();
-        document.querySelector("#login-template").classList.add("render");
+        const loginDOM = document.querySelector("#login-template");
+        loginDOM.classList.add("render");
 
         document.getElementById("login-btn").addEventListener("click", (e) => {
             e.preventDefault();
@@ -182,7 +184,7 @@ export default class App{
     }
     
     addNavButton(id, template){
-        document.querySelector(id).querySelector(".back-btn").addEventListener("click", (e) => {
+        document.querySelector(id).querySelector("#back-btn").addEventListener("click", (e) => {
             switch(template){
                 case "LOGIN":
                     this.renderLogin();

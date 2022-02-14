@@ -74,7 +74,7 @@ export default class Can{
             this.dropImage, 
             this.game.can.position.x - 8, 
             this.game.can.position.y + 36, 
-            8, 
+            6, 
             (this.depth)
         );
     }
