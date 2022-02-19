@@ -1,4 +1,3 @@
-import axios from 'axios';
 import UserService from '/src/firebase/service/userService';
 import gif from "../assets/images/*.gif";
 import png from "../assets/images/*.png";
@@ -10,7 +9,7 @@ export default class App{
         this.game = game;
 
         this.userService = new UserService();
-        this.user = {};
+
         // this.userService.getUsers(function(data) {
         //     console.log(data);
         // })
@@ -35,15 +34,6 @@ export default class App{
 
     login(email){
         return this.userService.getUserByEmail(email);
-    }
-
-    verify(otpCode){
-        return this.userService.getUserByEmail(otpCode);
-    }
-    
-    sendOTP(){
-        const loginOtp = Math.trunc(Math.random() * (999999 - 0) + 0).toString().padStart(6, '0');
-        console.log(loginOtp)
     }
 
     menu(){
@@ -163,19 +153,18 @@ export default class App{
 
     renderLogin(){
         this.renderInit();
-        const form = document.querySelector("#login-template")
-        const emailInputDOM = form.querySelector("#email-address")
+        const loginDOM = document.querySelector("#login-template");
         loginDOM.classList.add("render");
 
         document.getElementById("login-btn").addEventListener("click", (e) => {
             e.preventDefault();
-            const emailInput = emailInputDOM.value
+            const form = document.querySelector("#login-template")
+            const emailInput = form.querySelector("#email-address").value
 
             if(emailInput){
                 if(this.login(emailInput.trim())){
-                    this.popUpToast("bg-info", "Good! Almost there! 😀");
-                    this.user.email = emailInput.trim();
-                    this.renderOTP();
+                    this.popUpToast("bg-success", "Booze! You're welcome! 😀");
+                    this.game.start();
                 } else {
                     this.popUpToast("bg-danger", "Invalid email address! 🐞")
                 }
@@ -188,31 +177,17 @@ export default class App{
 
     renderOTP(){
         this.renderInit();
-        const form = document.querySelector("#otp-template")
-        form.classList.add("render");
-        const otpInputDOM = form.querySelector("#otp-code")
-        const confirmBtnDOM = document.getElementById("confirm-btn");
-        const resendOtpBtnDOM = document.getElementById("resend-otp-btn");
+        const loginDOM = document.querySelector("#otp-template");
+        loginDOM.classList.add("render");
 
-        otpInputDOM.addEventListener("keyup", (e) => {
-            if(otpInputDOM.value.trim().length === 6){
-                confirmBtnDOM.focus()
-            }
-        });
-
-        resendOtpBtnDOM.addEventListener("click", (e) => {
+        document.getElementById("confirm-btn").addEventListener("click", (e) => {
             e.preventDefault();
-            this.sendOTP();
-        });        
-
-        confirmBtnDOM.addEventListener("click", (e) => {
-            e.preventDefault();
-            const otpInput = otpInputDOM.value
+            const form = document.querySelector("#otp-template")
+            const otpInput = form.querySelector("#otp-code").value
 
             if(otpInput){
-                if(this.verify(otpInput.trim())){
+                if(this.login(otpInput.trim())){
                     this.popUpToast("bg-success", "Booze! You're welcome! 😀");
-                    this.user.otp = otpInput.trim();
                     this.game.start();
                 } else {
                     this.popUpToast("bg-danger", "Invalid OTP Code! 🐞")
@@ -225,23 +200,21 @@ export default class App{
     }
     
     addNavButton(id, template){
-        document.querySelectorAll(".back-btn").forEach((node) => {
-            node.addEventListener("click", (e) => {
-                switch(template){
-                    case "LOGIN":
-                        this.renderLogin();
-                        break;
-                    case "REGISTER":
-                        this.renderRegister();
-                        break;
-                    case "HOME":
-                        this.renderHome();
-                        break;
-                    default:
-                        break;
-                }
-            });
-        })
+        document.querySelector(id).querySelector("#back-btn").addEventListener("click", (e) => {
+            switch(template){
+                case "LOGIN":
+                    this.renderLogin();
+                    break;
+                case "REGISTER":
+                    this.renderRegister();
+                    break;
+                case "HOME":
+                    this.renderHome();
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     popUpToast(color="bg-primary", text="Drink!", time=3000){

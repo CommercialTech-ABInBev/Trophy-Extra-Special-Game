@@ -94,9 +94,28 @@ body{
 }
 
 input {
-	height: 50px;
 	background: #31313b !important;
 	color: #ffffff !important;
+	border: none !important;
+	box-shadow: 3px 5px 4px rgba(0, 0, 0, 0.1);
+}
+button, input {
+	height: 64px;
+}
+
+.hover:hover{
+	cursor: pointer;
+	filter: brightness(80%);
+}
+
+#otp-code{
+	letter-spacing: 40px;
+	text-align: center;
+	/* font-size: 70px; */
+	font-weight: lighter;
+}
+#otp-code:invalid {
+    border: 2px solid red !important;
 }
 
 #notification {

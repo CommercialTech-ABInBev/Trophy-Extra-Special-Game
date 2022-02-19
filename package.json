@@ -15,6 +15,7 @@
     "parcel": "1.12.3"
   },
   "dependencies": {
+    "axios": "^0.26.0",
     "firebase": "^9.4.1"
   }
 }

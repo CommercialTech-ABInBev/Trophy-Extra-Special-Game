@@ -31,13 +31,50 @@
                     <div class="col-md-6 offset-md-3 col-sm-12 p-0">
                         <div class="card card-dark p-4">
                             <h1 class="text-center text-primary">Login</h1>
+                            <p class="text-light text-center">Don’t have an account? Click here</p>
                             <div class="form">
                                 <div class="m-4">
                                 <input type="email" placeholder="Email address" class="form-control" id="email-address" />
                                 </div>
                                 <div class="m-4 float-end">
-                                    <button id="back-btn" class="btn btn-light">Cancel</button>
+                                    <button class="back-btn btn btn-light">Cancel</button>
                                     <button id="login-btn" class="btn btn-primary">Continue</button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row page" id="otp-template">
+                    <div class="col-md-6 offset-md-3 col-sm-12 p-0">
+                        <div class="card card-dark p-4">
+                            <h1 class="text-center text-primary">One-time Password</h1>
+                            <p class="text-light text-center">
+                                Enter the OTP Code sent to your email address<br/>
+                                <!-- This code will expire in 
+                                <span id="otp-timer" class="text-danger">00:00</span> -->
+                            </p>
+                            <div class="form">
+                                <div class="m-4 text-center">
+                                    <input 
+                                        type="password" pattern="[0-9]+" minlength="6" maxlength="6" 
+                                        placeholder="______" class="form-control" id="otp-code" autocomplete="off"/>
+                                </div>
+                                <div class="m-4">
+                                    <button id="confirm-btn" class="btn btn-primary w-100">Confirm</button>
+                                </div>  
+                                <div class="row m-4">
+                                    <div class="col-4">
+                                        <span class="back-btn hover float-start">Back</span>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="float-end">
+                                            <span>Didn’t receive an OTP?</span>
+                                            <span class="hover" id="resend-otp-btn">
+                                                <img alt="🔁" src="assets/images/resend.png" class="mx-1 mb-2"/>Resend
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>  
                             </div>
                         </div>
@@ -89,7 +126,7 @@
                                     </div>
                                 </div>
                                 <div class="m-4 float-end">
-                                    <button id="back-btn" class="btn btn-light">Cancel</button>
+                                    <button class="back-btn btn btn-light">Cancel</button>
                                     <button id="register-btn" class="btn btn-primary">Submit</button>
                                 </div>  
                             </div>
