@@ -50,7 +50,7 @@ export default class Game{
         this.appView.classList.remove("hide");
         this.app.menu();
         
-        // this.app.renderLogin();
+        this.app.renderLogin();
     }
 
     update(deltaTime){

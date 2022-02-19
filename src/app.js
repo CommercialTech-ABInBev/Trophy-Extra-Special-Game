@@ -23,6 +23,7 @@ export default class App{
         this.addNavButton("#register-template","LOGIN");
         this.addNavButton("#otp-template","LOGIN");
 
+        this.addLoginListener();
     }
 
     renderInit(){
@@ -162,27 +163,7 @@ export default class App{
     renderLogin(){
         this.renderInit();
         const form = document.querySelector("#login-template")
-        const emailInputDOM = form.querySelector("#email-address")
         form.classList.add("render");
-
-        document.getElementById("login-btn").addEventListener("click", (e) => {
-            e.preventDefault();
-            const emailInput = emailInputDOM.value
-
-            if(emailInput){
-                if(this.login(emailInput.trim())){
-                    this.popUpToast("bg-info", "Good! Almost there! 😀");
-                    this.user.email = emailInput.trim();
-                    this.renderOTP();
-                } else {
-                    this.popUpToast("bg-danger", "Invalid email address! 🐞")
-                }
-            } else {
-                this.popUpToast("bg-danger", "Your email address is required! 🐞");
-            }
-        });        
-
-
     }
 
     renderOTP(){
@@ -261,6 +242,28 @@ export default class App{
         })
     }
 
+    addLoginListener(){
+        this.renderInit();
+        const form = document.querySelector("#login-template")
+        const emailInputDOM = form.querySelector("#email-address")
+
+        document.getElementById("login-btn").addEventListener("click", (e) => {
+            e.preventDefault();
+            const emailInput = emailInputDOM.value
+            if(emailInput){
+                this.sendOTP();                
+                if(this.login(emailInput.trim())){
+                    this.popUpToast("bg-info", "Good! Almost there! 😀");
+                    this.user.email = emailInput.trim();
+                    this.renderOTP();
+                } else {
+                    this.popUpToast("bg-danger", "Invalid email address! 🐞")
+                }
+            } else {
+                this.popUpToast("bg-danger", "Your email address is required! 🐞");
+            }
+        });
+    }
     popUpToast(color="bg-primary", text="Drink!", time=3000){
         document.querySelector("#notification").innerHTML = `
         <div class="toast show align-items-center text-white ${color} border-0" role="alert" aria-live="assertive" aria-atomic="true">
