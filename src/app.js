@@ -14,6 +14,15 @@ export default class App{
         // this.userService.getUsers(function(data) {
         //     console.log(data);
         // })
+
+        
+        this.addPageButton(".signup-btn")
+        this.addPageButton(".signin-btn")
+
+        this.addNavButton("#login-template","HOME");
+        this.addNavButton("#register-template","LOGIN");
+        this.addNavButton("#otp-template","LOGIN");
+
     }
 
     renderInit(){
@@ -53,15 +62,6 @@ export default class App{
     renderHome(){
         this.renderInit();
         document.querySelector("#home-template").classList.add("render");
-
-        document.querySelector("#signup-btn").addEventListener("click", (e) => {
-            e.preventDefault();
-            this.renderRegister();
-        });
-        document.querySelector("#signin-btn").addEventListener("click", (e) => {
-            e.preventDefault();
-            this.renderLogin();
-        });
     }
     
     renderResult(state = this.game.gameState){
@@ -128,13 +128,11 @@ export default class App{
 
     renderRegister(){
         this.renderInit();
-        const registerDOM = document.querySelector("#register-template");
-        registerDOM.classList.add("render");
-        this.addNavButton("#register-template","HOME");
+        const form = document.querySelector("#register-template")
+        form.classList.add("render");
 
         document.getElementById("register-btn").addEventListener("click", (e) => {
             e.preventDefault();
-            const form = document.querySelector("#register-template")
             const nameInput = form.querySelector("#fullname").value
             const emailInput = form.querySelector("#email-address").value
             const phoneNumberInput = form.querySelector("#phone-number").value
@@ -165,7 +163,7 @@ export default class App{
         this.renderInit();
         const form = document.querySelector("#login-template")
         const emailInputDOM = form.querySelector("#email-address")
-        loginDOM.classList.add("render");
+        form.classList.add("render");
 
         document.getElementById("login-btn").addEventListener("click", (e) => {
             e.preventDefault();
@@ -183,7 +181,8 @@ export default class App{
                 this.popUpToast("bg-danger", "Your email address is required! 🐞");
             }
         });        
-        this.addNavButton("#login-template","HOME");
+
+
     }
 
     renderOTP(){
@@ -221,12 +220,12 @@ export default class App{
                 this.popUpToast("bg-danger", "OTP is required! 🐞");
             }
         });        
-        this.addNavButton("#otp-template","LOGIN");
     }
     
-    addNavButton(id, template){
-        document.querySelectorAll(".back-btn").forEach((node) => {
+    addNavButton(selector, template){
+        document.querySelector(selector).querySelectorAll(".back-btn").forEach((node) => {
             node.addEventListener("click", (e) => {
+                e.preventDefault();
                 switch(template){
                     case "LOGIN":
                         this.renderLogin();
@@ -236,6 +235,24 @@ export default class App{
                         break;
                     case "HOME":
                         this.renderHome();
+                        break;
+                    default:
+                        break;
+                }
+            });
+        })
+    }
+
+    addPageButton(selector){
+        document.querySelectorAll(selector).forEach((node) => {
+            node.addEventListener("click", (e) => {
+                e.preventDefault();
+                switch(selector){
+                    case ".signin-btn":
+                        this.renderLogin();
+                        break;
+                    case ".signup-btn":
+                        this.renderRegister();
                         break;
                     default:
                         break;
