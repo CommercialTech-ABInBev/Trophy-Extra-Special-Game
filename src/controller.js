@@ -52,7 +52,7 @@ export default class AppController{
                 method: 'post',
                 url: 'https://client-mailer.herokuapp.com/api/send-mail',
                 data: {
-                    "from": "ibcommercialtech2@gmail.com",
+                    "from": "trophystoutgames@gmail.com",
                     "to": this.user.emailAddress,
                     "subject": "Trophy Extra Special Bar",
                     "html": `<h1>One-time Password</h1><p>${this.user.otp.code}</p>`
