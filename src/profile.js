@@ -9,11 +9,11 @@ export default class Profile{
             lives: 0
         };
 
-        this.crate = {
+        this.can = {
             image: document.getElementById("img-can"),
             position: {x: this.game.gameWidth - 30, y: 20},
             size: {width: 16, height: 24},
-            can: 0
+            count: 0
         };
     }
 
@@ -47,32 +47,32 @@ export default class Profile{
         );
     }
 
-    drawCrate(context){
+    drawCan(context){
         context.font = "24px Arial";
         context.fillStyle = "#ffffff";
         context.textAlign = "center";
         context.fillText(
-            this.crate.can, 
-            this.crate.position.x - 18, 
-            this.crate.position.y + 20, 
+            this.can.count, 
+            this.can.position.x - 18, 
+            this.can.position.y + 20, 
         );
 
         context.drawImage(
-            this.crate.image, 
-            this.crate.position.x, 
-            this.crate.position.y, 
-            this.crate.size.width, 
-            this.crate.size.height
+            this.can.image, 
+            this.can.position.x, 
+            this.can.position.y, 
+            this.can.size.width, 
+            this.can.size.height
         );        
     }
 
     draw(context){
         this.heart.lives = this.game.user.daily.lives
-        this.crate.can = this.game.user.can.count
+        this.can.count = this.game.user.can.count
 
         this.drawUser(context);
         this.drawHeart(context);
-        this.drawCrate(context);
+        this.drawCan(context);
     }
 
     update(deltaTime){        

@@ -36,12 +36,14 @@ export default class Score{
     }
 
     miss(){
+        this.game.user.daily.lives -= 1; 
         this.game.gameState = GAMESTATE.MISSED;
         console.log("Missed!");
         this.emptyCups();
     }
 
     spill(){
+        this.game.user.daily.lives -= 1; 
         this.game.gameState = GAMESTATE.SPILLED;
         console.log("Spilled!");        
         this.emptyCups();
@@ -54,6 +56,8 @@ export default class Score{
         const fullCups = this.game.cups.filter((cup) => { return cup.full});
         console.log("Full cups: ",fullCups.length);
         if(fullCups.length === 3){
+            this.game.user.can.count += 2; 
+            this.game.user.can.modifiedOn = new Date(); 
             this.game.gameState = GAMESTATE.CONGRATS;
             console.log("Congratulation!");
             this.emptyCups();
