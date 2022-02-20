@@ -125,3 +125,32 @@ button, input {
 .toast{
 	width: 256px;
 }
+
+.trophy-title{
+	font-weight: bold;
+}
+.trophy-subtitle{
+	font-weight: normal;
+}
+.trophy-drink{
+	position: absolute;
+	top: 100px;
+	right: 0;
+}
+#img-pouring, #img-beer, #img-stout{
+	position: relative;
+	display: block;
+}
+#img-pouring{
+	width: 360px;
+	margin-top: -372px;
+}
+#img-beer{
+	width: 256px;
+	margin-left: -192px;
+}
+#img-stout{
+	width: 176px;
+	margin-left: -172px;
+	margin-top: -38px;
+}

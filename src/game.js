@@ -48,9 +48,7 @@ export default class Game{
     menu(){
         this.gameState = GAMESTATE.MENU;
         this.appView.classList.remove("hide");
-        this.app.menu();
-        
-        this.app.renderLogin();
+        this.app.menu();        
     }
 
     update(deltaTime){
