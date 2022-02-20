@@ -20,6 +20,9 @@ export default class UserRepository{
     return onValue(this.ref(), (snapshot) => {
       const data = [];
       snapshot.forEach(function(childSnapshot) {
+        console.log(
+          new Date(childSnapshot.val().timestamp*1000)
+        );
         data.push({id:childSnapshot.key,...childSnapshot.val()});
       });
 
