@@ -4,6 +4,10 @@ export default class UserService {
     constructor(){
         this.repository = new UserRepository();
     }
+
+    init(){
+        this.repository.getAllUsers((x)=> {});
+    }
     
     getUsers(){
         this.repository.getAllUsers(function (data){

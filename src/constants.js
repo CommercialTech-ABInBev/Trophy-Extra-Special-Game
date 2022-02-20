@@ -6,5 +6,6 @@ export const GAMESTATE = {
     MISSED: 4,
     WON: 5,
     SPILLED: 6,
-    CONGRATS: 7
+    CONGRATS: 7,
+    GAMEOVER: 8
 }

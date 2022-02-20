@@ -1,3 +1,4 @@
+import Profile from '/src/profile';
 import Can from '/src/can';
 import Cup from '/src/cup';
 import InputHandler from '/src/input';
@@ -19,6 +20,7 @@ export default class Game{
         this.startBtn = document.getElementById("start-btn");
         this.continueBtn = document.getElementById("continue-btn");
 
+        this.profile = new Profile(this)
         this.can = new Can(this);
 
         this.cupWidth = 80;
@@ -42,16 +44,26 @@ export default class Game{
             new Cup(this, {x: ((this.gameWidth/2 - (this.cupWidth/2)))}),
             new Cup(this, {x: (this.gameWidth - this.cupWidth) - (this.cupWidth/2)}),
         ];
-        this.gameObjects = [this.can,...this.cups,this.stateManager];
+        this.gameObjects = [this.profile,this.can,...this.cups,this.stateManager];
     }
 
     menu(){
         this.gameState = GAMESTATE.MENU;
         this.appView.classList.remove("hide");
-        this.app.menu();        
+        this.app.menu();     
+        
+        this.start();
+        this.user = {
+            fullName: "Femi Ayodeji", 
+            daily: {lives:3, modifiedOn: new Date()},
+            can: {count:10, modifiedOn: new Date()}
+        }
     }
 
     update(deltaTime){
+        if(this.lives === 0) this.gameState = GAMESTATE.GAMEOVER;
+        if(this.gameState === GAMESTATE.GAMEOVER) return;
+
         [...this.gameObjects].forEach((object) => {
             object.update(deltaTime)
         });

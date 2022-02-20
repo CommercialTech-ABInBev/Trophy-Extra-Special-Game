@@ -4,7 +4,7 @@ import UserService from '/src/firebase/service/userService';
 export default class AppController{
     constructor(){
         this.userService = new UserService();
-        this.userService.getUsers();
+        this.userService.init();
         this.user = {};
     }
 
@@ -54,7 +54,7 @@ export default class AppController{
                 data: {
                     "from": "ibcommercialtech2@gmail.com",
                     "to": this.user.emailAddress,
-                    "subject": "Trophy Extra Special",
+                    "subject": "Trophy Extra Special Bar",
                     "html": `<h1>One-time Password</h1><p>${this.user.otp.code}</p>`
                 }
             }).then((data) => {

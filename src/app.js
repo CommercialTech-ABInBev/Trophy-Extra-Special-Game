@@ -170,6 +170,7 @@ export default class App{
                 this.controller.login(emailInput.trim())
                     .then((x) => {
                         this.popUpToast("bg-info", "Good! Almost there! 😀");
+                        this.game.user = x;
                         this.controller.sendOTP()
                             .then((otp) => {
                                 loginBtnDOM.disabled = false;
