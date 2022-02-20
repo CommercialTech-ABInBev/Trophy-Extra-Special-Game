@@ -197,8 +197,8 @@ export default class App{
                     .then((x) => {
                         this.popUpToast("bg-info", "Good! Almost there! 😀");
                         this.game.user = {
-                            daily: {lives:2, modifiedOn: new Date()},
-                            can: {count:8, modifiedOn: new Date()},
+                            daily: {lives:3, modifiedOn: new Date()},
+                            can: {count:0, modifiedOn: new Date()},
                             ...x
                         };
                         this.controller.sendOTP()
