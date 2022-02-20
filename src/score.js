@@ -58,6 +58,7 @@ export default class Score{
         if(fullCups.length === 3){
             this.game.user.can.count += 2; 
             this.game.user.can.modifiedOn = new Date(); 
+            this.game.user.daily.lives = 0; 
             this.game.gameState = GAMESTATE.CONGRATS;
             console.log("Congratulation!");
             this.emptyCups();

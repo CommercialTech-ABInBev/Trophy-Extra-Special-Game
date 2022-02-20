@@ -19,6 +19,7 @@ export default class App{
         this.addLoginListener();
         this.addOtpListener();
         this.addRegisterListerner();
+        this.addResultListener();
     }
 
     renderInit(){
@@ -41,12 +42,14 @@ export default class App{
     renderResult(state = this.game.gameState){
         this.renderInit();
         const result = document.querySelector("#result-template");
-        const leaderboardBtn = document.querySelector("#leaderboard-btn");
+        const restartBtn = document.querySelector("#restart-btn");
         const startBtn = document.querySelector("#start-btn");
+        const waitBtn = document.querySelector("#wait-btn");
         const continueBtn = document.querySelector("#continue-btn");
 
-        leaderboardBtn.classList.add("hide")
+        restartBtn.classList.add("hide")
         startBtn.classList.add("hide")
+        waitBtn.classList.add("hide")
         continueBtn.classList.add("hide")
         result.querySelector("#result-img").classList.add("hide");
         result.classList.add("render");
@@ -61,9 +64,13 @@ export default class App{
                 break;
             case GAMESTATE.MISSED:
                 result.querySelector("#result-title").innerHTML = "Missed";
-                result.querySelector("#result-subtitle").innerHTML = "Awk!";
+                result.querySelector("#result-subtitle").innerHTML = "Awk! You lost a chance";
                 result.querySelector("#result-img").src = gif["missed"];
-                leaderboardBtn.classList.remove("hide")
+                if(this.game.user.daily.lives > 0){
+                    restartBtn.classList.remove("hide")
+                } else {
+                    waitBtn.classList.remove("hide")
+                }
                 break;
             case GAMESTATE.WON:
                 result.querySelector("#result-title").innerHTML = "Won";
@@ -73,31 +80,34 @@ export default class App{
                 break;
             case GAMESTATE.SPILLED:
                 result.querySelector("#result-title").innerHTML = "Spilled";
-                result.querySelector("#result-subtitle").innerHTML = "Oop!";
+                result.querySelector("#result-subtitle").innerHTML = "Oop! you lost a chance";
                 result.querySelector("#result-img").src = gif["spilled"];
-                leaderboardBtn.classList.remove("hide")
+                if(this.game.user.daily.lives > 0){
+                    restartBtn.classList.remove("hide")
+                } else {
+                    waitBtn.classList.remove("hide")
+                }
                 break;
             case GAMESTATE.CONGRATS:
                 result.querySelector("#result-title").innerHTML = "Congratulations";
                 result.querySelector("#result-subtitle").innerHTML = "Wow! You sure are skilled, and won for yourself 2 cans of trophy beer";
                 result.querySelector("#result-img").src = gif["congrats"];
-                leaderboardBtn.classList.remove("hide")
+                waitBtn.classList.remove("hide")
+                break;
+            case GAMESTATE.GAMEOVER:
+                result.querySelector("#result-title").innerHTML = "Game Over";
+                result.querySelector("#result-subtitle").innerHTML = "You're done for today.<br/> Wait until the next day.";
+                result.querySelector("#result-img").src = gif["wait"];
                 break;
             default:
-                leaderboardBtn.classList.remove("hide")
+                restartBtn.classList.remove("hide")
                 break;
         }
 
         if([GAMESTATE.MISSED, GAMESTATE.WON, GAMESTATE.SPILLED, GAMESTATE.CONGRATS].includes(state)){
             result.querySelector("#result-img").classList.remove("hide");
         }
-        result.querySelector("#result-img").classList.remove("hide");
-        
-        leaderboardBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            this.game.gameState = GAMESTATE.INIT;
-            this.game.start();
-        });
+        result.querySelector("#result-img").classList.remove("hide");        
     }
 
     renderRegister(){
@@ -158,6 +168,22 @@ export default class App{
         })
     }
 
+    addResultListener(){
+        const restartBtn = document.querySelector("#restart-btn");
+        const waitBtn = document.querySelector("#wait-btn");
+
+        restartBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.game.gameState = GAMESTATE.INIT;
+            this.game.start();
+        });
+        waitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.game.gameState = GAMESTATE.GAMEOVER;
+            this.renderResult();
+        });
+
+    }
     addLoginListener(){
         const form = document.querySelector("#login-template")
         const emailInputDOM = form.querySelector("#email-address")
@@ -170,7 +196,11 @@ export default class App{
                 this.controller.login(emailInput.trim())
                     .then((x) => {
                         this.popUpToast("bg-info", "Good! Almost there! 😀");
-                        this.game.user = x;
+                        this.game.user = {
+                            daily: {lives:2, modifiedOn: new Date()},
+                            can: {count:8, modifiedOn: new Date()},
+                            ...x
+                        };
                         this.controller.sendOTP()
                             .then((otp) => {
                                 loginBtnDOM.disabled = false;

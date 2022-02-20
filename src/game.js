@@ -52,18 +52,10 @@ export default class Game{
         this.appView.classList.remove("hide");
         this.app.menu();     
         
-        this.start();
-        this.user = {
-            fullName: "Femi Ayodeji", 
-            daily: {lives:3, modifiedOn: new Date()},
-            can: {count:10, modifiedOn: new Date()}
-        }
+        // this.start();
     }
 
     update(deltaTime){
-        if(this.lives === 0) this.gameState = GAMESTATE.GAMEOVER;
-        if(this.gameState === GAMESTATE.GAMEOVER) return;
-
         [...this.gameObjects].forEach((object) => {
             object.update(deltaTime)
         });

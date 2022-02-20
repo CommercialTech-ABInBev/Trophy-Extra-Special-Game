@@ -89,7 +89,8 @@ body{
 .card-dark{
 	background: #22222ed7;
 	margin: 20px 10px;
-	padding: 20% 0px !important;
+	margin-top: 48px !important;
+	padding: 5% 0px !important;
 	height: 90vh;
 }
 
@@ -128,6 +129,7 @@ button, input {
 
 .trophy-title{
 	font-weight: bold;
+	margin-top: 36px;
 }
 .trophy-subtitle{
 	font-weight: normal;
