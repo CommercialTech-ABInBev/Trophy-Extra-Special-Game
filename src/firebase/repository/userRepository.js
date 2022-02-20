@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, onValue, push, serverTimestamp } from "firebase/database";
+import { getDatabase, ref, set, onValue, push, serverTimestamp } from "firebase/database";
 import config from "../FirebaseConfig";
 
 export default class UserRepository{
@@ -41,12 +41,12 @@ export default class UserRepository{
     push(this.ref(), {timestamp: serverTimestamp(),...modelData});
   }
 
-  updateUser(modelData){
-    userRef.child('mike').update(
-      {
-        'dateOfBirth': moment(value.dateOfBirth).toDate().getTime()
-      }
-    );
+  updateUser(path, modelData){
+    onValue(this.ref(`/${path}`), (snapshot) => {
+      const data = snapshot.val();
+      set(this.ref(`/${path}`), {...data,...modelData});
+      callback(data);
+    });
   }
 
 }

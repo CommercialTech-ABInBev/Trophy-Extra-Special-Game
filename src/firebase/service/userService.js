@@ -6,7 +6,11 @@ export default class UserService {
     }
 
     init(){
-        this.repository.getAllUsers((x)=> {});
+        // this.repository.updateUser("-MwOPfGvyxO3PolxO2RQ", {
+        //     ...{can: {count:2, modifiedOn: new Date()}},
+        //     ...{daily: {lives:3, modifiedOn: new Date()}},
+        // });
+        this.repository.getAllUsers(()=>{});
     }
     
     getUsers(){
