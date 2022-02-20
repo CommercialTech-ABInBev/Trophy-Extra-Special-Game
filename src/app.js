@@ -1,7 +1,6 @@
-import axios from 'axios';
-import UserService from '/src/firebase/service/userService';
 import gif from "../assets/images/*.gif";
 import png from "../assets/images/*.png";
+import AppController from '/src/controller';
 import * as Constants from '/src/constants';
 const GAMESTATE = Constants.GAMESTATE;
 
@@ -9,13 +8,7 @@ export default class App{
     constructor(game){
         this.game = game;
 
-        this.userService = new UserService();
-        this.user = {};
-        // this.userService.getUsers(function(data) {
-        //     console.log(data);
-        // })
-
-        
+        this.controller = new AppController();
         this.addPageButton(".signup-btn")
         this.addPageButton(".signin-btn")
 
@@ -24,6 +17,8 @@ export default class App{
         this.addNavButton("#otp-template","LOGIN");
 
         this.addLoginListener();
+        this.addOtpListener();
+        this.addRegisterListerner();
     }
 
     renderInit(){
@@ -32,28 +27,6 @@ export default class App{
         document.querySelector("#login-template").classList.remove("render");
         document.querySelector("#result-template").classList.remove("render");
         document.querySelector("#otp-template").classList.remove("render");
-    }
-
-    register(model){
-        if(this.userService.getUserByEmail(model.emailAddress)){
-            return false;
-        } else {
-            this.userService.createUser(model);
-            return true;    
-        }
-    }
-
-    login(email){
-        return this.userService.getUserByEmail(email);
-    }
-
-    verify(otpCode){
-        return this.userService.getUserByEmail(otpCode);
-    }
-    
-    sendOTP(){
-        const loginOtp = Math.trunc(Math.random() * (999999 - 0) + 0).toString().padStart(6, '0');
-        console.log(loginOtp)
     }
 
     menu(){
@@ -131,33 +104,6 @@ export default class App{
         this.renderInit();
         const form = document.querySelector("#register-template")
         form.classList.add("render");
-
-        document.getElementById("register-btn").addEventListener("click", (e) => {
-            e.preventDefault();
-            const nameInput = form.querySelector("#fullname").value
-            const emailInput = form.querySelector("#email-address").value
-            const phoneNumberInput = form.querySelector("#phone-number").value
-            const cityInput = form.querySelector("#city").value
-            const stateInput = form.querySelector("#state").value
-
-            if(nameInput && emailInput && phoneNumberInput && cityInput && stateInput){
-                if(this.register({
-                    fullName: nameInput.trim(),
-                    emailAddress: emailInput.trim(),
-                    phoneAddress: phoneNumberInput.trim(),
-                    city: cityInput.trim(),
-                    state: stateInput.trim(),
-                })){
-                    this.popUpToast("bg-success", "Oh great! Your registration is successful 😀");
-                    this.renderLogin();    
-                } else {
-                    this.popUpToast("bg-danger", "Email address has been used! 🐞");
-                }
-            } else {
-                this.popUpToast("bg-danger", "All fields are required! 🐞");
-            }
-        });        
-
     }
 
     renderLogin(){
@@ -170,37 +116,7 @@ export default class App{
         this.renderInit();
         const form = document.querySelector("#otp-template")
         form.classList.add("render");
-        const otpInputDOM = form.querySelector("#otp-code")
-        const confirmBtnDOM = document.getElementById("confirm-btn");
-        const resendOtpBtnDOM = document.getElementById("resend-otp-btn");
-
-        otpInputDOM.addEventListener("keyup", (e) => {
-            if(otpInputDOM.value.trim().length === 6){
-                confirmBtnDOM.focus()
-            }
-        });
-
-        resendOtpBtnDOM.addEventListener("click", (e) => {
-            e.preventDefault();
-            this.sendOTP();
-        });        
-
-        confirmBtnDOM.addEventListener("click", (e) => {
-            e.preventDefault();
-            const otpInput = otpInputDOM.value
-
-            if(otpInput){
-                if(this.verify(otpInput.trim())){
-                    this.popUpToast("bg-success", "Booze! You're welcome! 😀");
-                    this.user.otp = otpInput.trim();
-                    this.game.start();
-                } else {
-                    this.popUpToast("bg-danger", "Invalid OTP Code! 🐞")
-                }
-            } else {
-                this.popUpToast("bg-danger", "OTP is required! 🐞");
-            }
-        });        
+        document.getElementById("user-email-address").innerHTML = this.controller.user.email;
     }
     
     addNavButton(selector, template){
@@ -243,27 +159,112 @@ export default class App{
     }
 
     addLoginListener(){
-        this.renderInit();
         const form = document.querySelector("#login-template")
         const emailInputDOM = form.querySelector("#email-address")
-
-        document.getElementById("login-btn").addEventListener("click", (e) => {
+        const loginBtnDOM = document.getElementById("login-btn");
+        loginBtnDOM.addEventListener("click", (e) => {
             e.preventDefault();
+            loginBtnDOM.disabled = true;
             const emailInput = emailInputDOM.value
             if(emailInput){
-                this.sendOTP();                
-                if(this.login(emailInput.trim())){
-                    this.popUpToast("bg-info", "Good! Almost there! 😀");
-                    this.user.email = emailInput.trim();
-                    this.renderOTP();
-                } else {
-                    this.popUpToast("bg-danger", "Invalid email address! 🐞")
-                }
+                this.controller.login(emailInput.trim())
+                    .then((x) => {
+                        this.popUpToast("bg-info", "Good! Almost there! 😀");
+                        this.controller.sendOTP()
+                            .then((otp) => {
+                                loginBtnDOM.disabled = false;
+                                this.renderOTP();                        
+                            }).catch((e) => {
+                                loginBtnDOM.disabled = false;
+                                this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
+                            });
+                    }).catch((e) => {
+                        loginBtnDOM.disabled = false;
+                        this.popUpToast("bg-danger", "Invalid email address! 🐞")
+                    });
             } else {
+                loginBtnDOM.disabled = false;
                 this.popUpToast("bg-danger", "Your email address is required! 🐞");
             }
         });
     }
+
+    addOtpListener(){
+        const form = document.querySelector("#otp-template")
+        const otpInputDOM = form.querySelector("#otp-code")
+        const confirmBtnDOM = document.getElementById("confirm-btn");
+        const resendOtpBtnDOM = document.getElementById("resend-otp-btn");
+
+        otpInputDOM.addEventListener("keyup", (e) => {
+            if(otpInputDOM.value.trim().length === 6){
+                confirmBtnDOM.focus()
+            }
+        });
+
+        resendOtpBtnDOM.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.controller.sendOTP();
+        });        
+
+        confirmBtnDOM.addEventListener("click", (e) => {
+            e.preventDefault();
+            confirmBtnDOM.disabled = true;
+            const otpInput = otpInputDOM.value
+
+            if(otpInput){
+                this.controller.verify(otpInput.trim())
+                    .then((x) => {
+                        this.popUpToast("bg-success", "Booze! You're welcome! 😀");
+                        confirmBtnDOM.disabled = false;
+                        this.game.start();
+                    }).catch((e) => {
+                        confirmBtnDOM.disabled = false;
+                        this.popUpToast("bg-danger", "Invalid OTP Code! 🐞")
+                    });
+            
+            } else {
+                confirmBtnDOM.disabled = false;
+                this.popUpToast("bg-danger", "OTP is required! 🐞");
+            }
+        });        
+    }
+
+    addRegisterListerner(){
+        const form = document.querySelector("#register-template")
+        const registerBtnDOM = document.getElementById("register-btn");
+        registerBtnDOM.addEventListener("click", (e) => {
+            e.preventDefault();
+            registerBtnDOM.disabled = true;
+            const nameInput = form.querySelector("#fullname").value
+            const emailInput = form.querySelector("#email-address").value
+            const phoneNumberInput = form.querySelector("#phone-number").value
+            const cityInput = form.querySelector("#city").value
+            const stateInput = form.querySelector("#state").value
+
+            if(nameInput && emailInput && phoneNumberInput && cityInput && stateInput){
+                const newUser = {
+                    fullName: nameInput.trim(),
+                    emailAddress: emailInput.trim(),
+                    phoneAddress: phoneNumberInput.trim(),
+                    city: cityInput.trim(),
+                    state: stateInput.trim(),
+                };
+                this.controller.register(newUser)
+                    .then((x) => {
+                        this.popUpToast("bg-success", "Oh great! Your registration is successful 😀");
+                        registerBtnDOM.disabled = false;
+                        this.renderLogin();    
+                    }).catch((e) => {
+                        registerBtnDOM.disabled = false;
+                        this.popUpToast("bg-danger", "Email address has been used! 🐞");
+                    });
+            } else {
+                registerBtnDOM.disabled = false;
+                this.popUpToast("bg-danger", "All fields are required! 🐞");
+            }
+        });        
+    }
+
     popUpToast(color="bg-primary", text="Drink!", time=3000){
         document.querySelector("#notification").innerHTML = `
         <div class="toast show align-items-center text-white ${color} border-0" role="alert" aria-live="assertive" aria-atomic="true">
