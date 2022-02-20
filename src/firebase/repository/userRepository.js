@@ -41,4 +41,12 @@ export default class UserRepository{
     push(this.ref(), {timestamp: serverTimestamp(),...modelData});
   }
 
+  updateUser(modelData){
+    userRef.child('mike').update(
+      {
+        'dateOfBirth': moment(value.dateOfBirth).toDate().getTime()
+      }
+    );
+  }
+
 }

@@ -184,6 +184,7 @@ export default class App{
         });
 
     }
+
     addLoginListener(){
         const form = document.querySelector("#login-template")
         const emailInputDOM = form.querySelector("#email-address")
@@ -201,14 +202,15 @@ export default class App{
                             can: {count:0, modifiedOn: new Date()},
                             ...x
                         };
-                        this.controller.sendOTP()
-                            .then((otp) => {
-                                loginBtnDOM.disabled = false;
-                                this.renderOTP();                        
-                            }).catch((e) => {
-                                loginBtnDOM.disabled = false;
-                                this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
-                            });
+                        this.game.start();
+                        // this.controller.sendOTP()
+                        //     .then((otp) => {
+                        //         loginBtnDOM.disabled = false;
+                        //         this.renderOTP();                        
+                        //     }).catch((e) => {
+                        //         loginBtnDOM.disabled = false;
+                        //         this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
+                        //     });
                     }).catch((e) => {
                         loginBtnDOM.disabled = false;
                         this.popUpToast("bg-danger", "Invalid email address! 🐞")

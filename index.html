@@ -187,12 +187,15 @@
             </div>    
         </div>
        
-            <audio id="bg_music" volu autoplay loop>
+            <audio id="bg_music" loop>
                 <source src="assets/audio/bg.mp3" type="audio/mp3" />
             </audio>
             <script>
-                var bgMusic = document.getElementById("bg_music");
-                bgMusic.volume = 0.05;
+                window.addEventListener('load', (event) => {
+                    var bgMusic = document.getElementById("bg_music");
+                    bgMusic.volume = 0.1;
+                    bgMusic.play();
+                });
             </script>
         <script src="src/index.js"></script>
         <script src="libs/bootstrap.bundle.min.js"></script>
