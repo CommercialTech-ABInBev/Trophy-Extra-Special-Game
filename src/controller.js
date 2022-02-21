@@ -66,8 +66,13 @@ export default class AppController{
         });    
     }
 
-    initCan(){
-        
+    updateCan(){
+        const currentCan = this.game.user.can;
+        const can = {can: {count:(currentCan.count + 2), modifiedOn: new Date().toDateString()}};
+        const result = this.userService.updateUser(
+            this.game.user.id, can
+        );
+        this.game.user = result;
     }
 
 }

@@ -44,8 +44,9 @@ export default class UserRepository{
   updateUser(path, modelData, callback){
     onValue(this.ref(`/${path}`), (snapshot) => {
       const data = snapshot.val();
-      set(this.ref(`/${path}`), {...data,...modelData});
-      callback(data);
+      const newData = {...data,...modelData};
+      set(this.ref(`/${path}`), newData);
+      callback(newData);
     });
   }
 
