@@ -16,13 +16,13 @@ export default class UserRepository{
     return ref(this.db, `users${path}`);
   }
   
+  init(){
+    console.log(serverTimestamp());
+  }
   getAllUsers (callback){    
     return onValue(this.ref(), (snapshot) => {
       const data = [];
       snapshot.forEach(function(childSnapshot) {
-        console.log(
-          new Date(childSnapshot.val().timestamp*1000)
-        );
         data.push({id:childSnapshot.key,...childSnapshot.val()});
       });
 
@@ -38,10 +38,10 @@ export default class UserRepository{
   }
 
   createUser(modelData) {
-    push(this.ref(), {timestamp: serverTimestamp(),...modelData});
+    push(this.ref(), modelData);
   }
 
-  updateUser(path, modelData){
+  updateUser(path, modelData, callback){
     onValue(this.ref(`/${path}`), (snapshot) => {
       const data = snapshot.val();
       set(this.ref(`/${path}`), {...data,...modelData});

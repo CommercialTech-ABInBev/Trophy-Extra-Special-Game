@@ -2,7 +2,8 @@ import axios from 'axios';
 import UserService from '/src/firebase/service/userService';
 
 export default class AppController{
-    constructor(){
+    constructor(game){
+        this.game = game;
         this.userService = new UserService();
         this.userService.init();
         this.user = {};
@@ -64,4 +65,11 @@ export default class AppController{
             });
         });    
     }
+
+    initDaily(){
+    }
+
+    initCan(){
+    }
+
 }

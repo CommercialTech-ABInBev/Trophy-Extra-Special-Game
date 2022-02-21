@@ -7,11 +7,16 @@ export default class InputHandler{
     constructor(game) {
         this.game = game;
         let canvas = document.getElementById("game-screen");
+        this.pourSound = document.getElementById("pour_sound");
         this.score = new Score(game);
 
         canvas.addEventListener("click", (e) => {
             if(game.gameState === GAMESTATE.RUNNING){
                 game.gameState = GAMESTATE.POURED;
+                this.pourSound.pause();
+                this.pourSound.currentTime = 0;
+                this.pourSound.volume = 0.2;
+                this.pourSound.play();
 
                 const {poured, spilled} = this.score.pour();
 

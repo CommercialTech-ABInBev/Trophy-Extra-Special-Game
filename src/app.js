@@ -8,7 +8,7 @@ export default class App{
     constructor(game){
         this.game = game;
 
-        this.controller = new AppController();
+        this.controller = new AppController(game);
         this.addPageButton(".signup-btn")
         this.addPageButton(".signin-btn")
 
@@ -197,21 +197,19 @@ export default class App{
                 this.controller.login(emailInput.trim())
                     .then((x) => {
                         this.popUpToast("bg-info", "Good! Almost there! 😀");
-                        this.game.user = {
-                            daily: {lives:3, modifiedOn: new Date()},
-                            can: {count:0, modifiedOn: new Date()},
-                            ...x
-                        };
+                        this.game.user = x;
                         this.game.start();
                         // this.controller.sendOTP()
                         //     .then((otp) => {
                         //         loginBtnDOM.disabled = false;
                         //         this.renderOTP();                        
                         //     }).catch((e) => {
+                        //         console.log(e);
                         //         loginBtnDOM.disabled = false;
                         //         this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
                         //     });
                     }).catch((e) => {
+                        console.log(e);
                         loginBtnDOM.disabled = false;
                         this.popUpToast("bg-danger", "Invalid email address! 🐞")
                     });
@@ -251,6 +249,7 @@ export default class App{
                         confirmBtnDOM.disabled = false;
                         this.game.start();
                     }).catch((e) => {
+                        console.log(e);
                         confirmBtnDOM.disabled = false;
                         this.popUpToast("bg-danger", "Invalid OTP Code! 🐞")
                     });
@@ -288,6 +287,7 @@ export default class App{
                         registerBtnDOM.disabled = false;
                         this.renderLogin();    
                     }).catch((e) => {
+                        console.log(e);
                         registerBtnDOM.disabled = false;
                         this.popUpToast("bg-danger", "Email address has been used! 🐞");
                     });
