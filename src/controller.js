@@ -84,7 +84,7 @@ export default class AppController{
     updateCan(){
         const currentCan = this.game.user.can;
         const can = {can: {count: (currentCan.count + 2), modifiedOn: this.userService.formatDate()}};
-        const result = this.userService.updateUser(
+        this.userService.updateUser(
             this.game.user.id, can
         ).then((x) => {
             this.game.user = {...this.game.user,...can};
