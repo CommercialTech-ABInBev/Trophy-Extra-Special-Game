@@ -83,10 +83,11 @@ export default class AppController{
 
     updateCan(){
         const currentCan = this.game.user.can;
-        const can = {can: {count: (currentCan.count + 2), modifiedOn: this.userService.formatDate()}};
+        let can = {can: {count: (currentCan.count + 2), modifiedOn: this.userService.formatDate()}};
         this.userService.updateUser(
             this.game.user.id, can
         ).then((x) => {
+            console.log("controller: ",x)
             this.game.user = {...this.game.user,...can};
         }).catch((e) => {
             console.log(e);

@@ -61,8 +61,8 @@ export default class Score{
         console.log("Full cups: ",fullCups.length);
         if(fullCups.length === 3){
             this.game.input.sound(this.game.input.congratsSound);
-            this.game.app.controller.updateCan();
             this.game.app.controller.updateDaily(true);
+            this.game.app.controller.updateCan();
             this.game.gameState = GAMESTATE.CONGRATS;
             console.log("Congratulation!");
             this.emptyCups();
