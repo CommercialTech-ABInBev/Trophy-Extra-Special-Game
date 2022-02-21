@@ -39,12 +39,17 @@ export default class Game{
         this.can.reset();
         this.app.renderResult();
 
-        this.cups = [
-            new Cup(this, {x: (this.cupWidth) - (this.cupWidth/2)}),
-            new Cup(this, {x: ((this.gameWidth/2 - (this.cupWidth/2)))}),
-            new Cup(this, {x: (this.gameWidth - this.cupWidth) - (this.cupWidth/2)}),
-        ];
-        this.gameObjects = [this.profile,this.can,...this.cups,this.stateManager];
+        if(this.user.daily.lives > 0){
+            this.cups = [
+                new Cup(this, {x: (this.cupWidth) - (this.cupWidth/2)}),
+                new Cup(this, {x: ((this.gameWidth/2 - (this.cupWidth/2)))}),
+                new Cup(this, {x: (this.gameWidth - this.cupWidth) - (this.cupWidth/2)}),
+            ];
+            this.gameObjects = [this.profile,this.can,...this.cups,this.stateManager];            
+        } else {
+            this.gameState = GAMESTATE.GAMEOVER;
+            this.app.renderResult();  
+        }
     }
 
     menu(){

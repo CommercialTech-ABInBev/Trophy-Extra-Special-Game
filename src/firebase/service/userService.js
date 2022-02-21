@@ -27,7 +27,7 @@ export default class UserService {
 
     createUser(modelData) {
         modelData = {
-            daily: {lives:3, modifiedOn: this.formatDate()},
+            daily: {lives:100, modifiedOn: this.formatDate()},
             can: {count:0, modifiedOn: this.formatDate()},
             createdOn: this.formatDate(),
             ...modelData
@@ -36,11 +36,13 @@ export default class UserService {
     }
 
     updateUser(path, modelData) {
-        let user = {};
-        this.repository.updateUser(path, modelData, (x) => {
-            user = x;
-        });
-        return user
+        return new Promise((resolve, reject) => {
+            this.repository.updateUser(path, modelData).then((x) => {
+                resolve(x);
+            }).catch((error) => {
+                reject(error);
+            });          
+        })
     }
 
     formatDate(d = new Date()){

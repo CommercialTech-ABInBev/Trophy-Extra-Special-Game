@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, set, onValue, push, serverTimestamp } from "firebase/database";
+import { getDatabase, ref, child, onValue, get, set, push, serverTimestamp } from "firebase/database";
 import config from "../FirebaseConfig";
 
 export default class UserRepository{
@@ -41,13 +41,34 @@ export default class UserRepository{
     push(this.ref(), modelData);
   }
 
-  updateUser(path, modelData, callback){
-    onValue(this.ref(`/${path}`), (snapshot) => {
-      const data = snapshot.val();
-      const newData = {...data,...modelData};
-      set(this.ref(`/${path}`), newData);
-      callback(newData);
+  updateUser(path, modelData){
+    // this.ref(`/${path}`).once("value").then(snapshot => {
+    //   const data = snapshot.val();
+    //   const newData = {...data,...modelData};
+    //   set(this.ref(`/${path}`), newData);
+    //   callback(newData);
+    // })
+    // onValue(this.ref(`/${path}`), (snapshot) => {
+    //   const data = snapshot.val();
+    //   const newData = {...data,...modelData};
+    //   set(this.ref(`/${path}`), newData);
+    //   callback(newData);
+    // });
+    return new Promise((resolve, reject) => {
+
+      get(child(this.ref(), `/${path}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const newData = {...data,...modelData};
+          set(this.ref(`/${path}`), newData);
+          resolve(newData);
+        } else {
+          reject("No data available");
+        }  
+      }).catch((error) => {
+        console.error(error);
     });
-  }
+  })
+}
 
 }

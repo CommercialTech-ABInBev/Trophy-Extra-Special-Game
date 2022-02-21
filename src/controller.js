@@ -70,13 +70,15 @@ export default class AppController{
         const currentDaily = this.game.user.daily;
         let daily = {daily: {lives: (currentDaily.lives - 1), modifiedOn: this.userService.formatDate()}};
         if(init){
-            daily = {daily: {lives: 3}};
+            daily = {daily: {lives: 100}};
         }
-        const result = this.userService.updateUser(
+        this.userService.updateUser(
             this.game.user.id, daily
-        );
-        this.game.user = {...this.game.user,...daily};
-        // console.log(result)
+        ).then((x) => {
+            this.game.user = {...this.game.user,...daily};
+        }).catch((e) => {
+            console.log(e);
+        });
     }
 
     updateCan(){
@@ -84,8 +86,11 @@ export default class AppController{
         const can = {can: {count: (currentCan.count + 2), modifiedOn: this.userService.formatDate()}};
         const result = this.userService.updateUser(
             this.game.user.id, can
-        );
-        this.game.user = result;
+        ).then((x) => {
+            this.game.user = {...this.game.user,...can};
+        }).catch((e) => {
+            console.log(e);
+        });
     }
 
 }
