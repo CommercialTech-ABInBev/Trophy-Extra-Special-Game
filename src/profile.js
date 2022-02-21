@@ -4,27 +4,27 @@ export default class Profile{
 
         this.heart = {
             image: document.getElementById("img-heart"),
-            position: {x: 28, y: 28},
-            size: {width: 24, height: 24},
+            position: {x: 28, y: 24},
+            size: {width: 24, height: 25},
             lives: 0
         };
 
         this.can = {
             image: document.getElementById("img-can"),
-            position: {x: this.game.gameWidth - 30, y: 20},
+            position: {x: this.game.gameWidth - 30, y: 25},
             size: {width: 16, height: 24},
             count: 0
         };
     }
 
     drawUser(context){
-        context.font = "16px Arial";
+        context.font = "20px Arial";
         context.fillStyle = "#ffffff";
         context.textAlign = "center";
         context.fillText(
             this.game.user.fullName, 
-            this.heart.position.x + 30, 
-            this.heart.position.y - 5, 
+            this.game.gameWidth/2, 
+            25, 
         );
     }
 
