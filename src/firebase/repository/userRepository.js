@@ -42,20 +42,7 @@ export default class UserRepository{
   }
 
   updateUser(path, modelData){
-    // this.ref(`/${path}`).once("value").then(snapshot => {
-    //   const data = snapshot.val();
-    //   const newData = {...data,...modelData};
-    //   set(this.ref(`/${path}`), newData);
-    //   callback(newData);
-    // })
-    // onValue(this.ref(`/${path}`), (snapshot) => {
-    //   const data = snapshot.val();
-    //   const newData = {...data,...modelData};
-    //   set(this.ref(`/${path}`), newData);
-    //   callback(newData);
-    // });
     return new Promise((resolve, reject) => {
-
       get(child(this.ref(), `/${path}`)).then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
