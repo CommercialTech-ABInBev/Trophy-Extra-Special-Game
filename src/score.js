@@ -7,6 +7,7 @@ export default class Score{
     }
 
     pour(){
+        this.game.input.sound(this.game.input.pourSound);
         this.game.can.depth = 0;
         let poured = false;
         let spilled = false;
@@ -36,6 +37,7 @@ export default class Score{
     }
 
     miss(){
+        this.game.input.sound(this.game.input.failSound);
         this.game.user.daily.lives -= 1; 
         this.game.gameState = GAMESTATE.MISSED;
         console.log("Missed!");
@@ -43,6 +45,7 @@ export default class Score{
     }
 
     spill(){
+        this.game.input.sound(this.game.input.failSound);
         this.game.user.daily.lives -= 1; 
         this.game.gameState = GAMESTATE.SPILLED;
         console.log("Spilled!");        
@@ -50,17 +53,20 @@ export default class Score{
     }
 
     win(){
+        this.game.input.sound(this.game.input.winSound);
         this.game.gameState = GAMESTATE.WON;
         console.log("Won!");
 
         const fullCups = this.game.cups.filter((cup) => { return cup.full});
         console.log("Full cups: ",fullCups.length);
         if(fullCups.length === 3){
+            this.game.input.sound(this.game.input.congratsSound);
             this.game.user.can.count += 2; 
             this.game.user.can.modifiedOn = new Date(); 
             this.game.user.daily.lives = 0; 
             this.game.gameState = GAMESTATE.CONGRATS;
             console.log("Congratulation!");
+            this.game.input.sound(this.game.input.congratsSound)
             this.emptyCups();
         }
     }

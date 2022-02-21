@@ -6,17 +6,18 @@ const GAMESTATE = Constants.GAMESTATE;
 export default class InputHandler{
     constructor(game) {
         this.game = game;
-        let canvas = document.getElementById("game-screen");
+        this.canvas = document.getElementById("game-screen");
+        this.startSound = document.getElementById("start_sound");
         this.pourSound = document.getElementById("pour_sound");
+        this.winSound = document.getElementById("win_sound");
+        this.congratsSound = document.getElementById("congrats_sound");
+        this.failSound = document.getElementById("fail_sound");
+        this.overSound = document.getElementById("over_sound");
         this.score = new Score(game);
 
-        canvas.addEventListener("click", (e) => {
+        this.canvas.addEventListener("click", (e) => {
             if(game.gameState === GAMESTATE.RUNNING){
                 game.gameState = GAMESTATE.POURED;
-                this.pourSound.pause();
-                this.pourSound.currentTime = 0;
-                this.pourSound.volume = 0.2;
-                this.pourSound.play();
 
                 const {poured, spilled} = this.score.pour();
 
@@ -32,10 +33,12 @@ export default class InputHandler{
         });
 
         game.startBtn.addEventListener("click", (e) => {
+            this.sound(this.startSound);
             this.play();
         });
 
         game.continueBtn.addEventListener("click", (e) => {
+            this.sound(this.startSound);
             if([GAMESTATE.WON].includes(this.game.gameState)){
                 this.play();
             }
@@ -49,5 +52,12 @@ export default class InputHandler{
         this.game.gameState = GAMESTATE.RUNNING;
         this.game.startBtn.classList.add("hide");
         this.game.continueBtn.classList.add("hide");
+    }
+    sound(audio){
+        audio.pause();
+        audio.currentTime = 0;
+        audio.volume = 0.2;
+        audio.play();
+
     }
 }

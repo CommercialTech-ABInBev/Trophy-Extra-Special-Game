@@ -66,10 +66,8 @@ export default class AppController{
         });    
     }
 
-    initDaily(){
-    }
-
     initCan(){
+        
     }
 
 }

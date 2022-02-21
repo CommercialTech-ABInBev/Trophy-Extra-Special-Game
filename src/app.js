@@ -174,11 +174,13 @@ export default class App{
 
         restartBtn.addEventListener("click", (e) => {
             e.preventDefault();
+            this.game.input.sound(this.game.input.startSound);
             this.game.gameState = GAMESTATE.INIT;
             this.game.start();
         });
         waitBtn.addEventListener("click", (e) => {
             e.preventDefault();
+            this.game.input.sound(this.game.input.overSound);
             this.game.gameState = GAMESTATE.GAMEOVER;
             this.renderResult();
         });

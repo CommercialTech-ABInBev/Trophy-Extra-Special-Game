@@ -31,7 +31,7 @@ export default class Game{
 
         this.user = {};
 
-        new InputHandler(this);        
+        this.input = new InputHandler(this);        
         this.menu();
     }
 

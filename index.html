@@ -23,6 +23,28 @@
             <img alt="" id="img-spill" src="assets/images/cup_spill.png" />    
             <img alt="" id="img-pour" src="assets/images/can_pour.png" />    
             <img alt="" id="img-drop" src="assets/images/drop.png" />    
+
+            <audio id="bg_music" loop>
+                <source src="assets/audio/bg.mp3" type="audio/mp3" />
+            </audio>
+            <audio id="start_sound">
+                <source src="assets/audio/start.mp3" type="audio/mp3" />
+            </audio>
+            <audio id="pour_sound">
+                <source src="assets/audio/pour.mp3" type="audio/mp3" />
+            </audio>
+            <audio id="win_sound">
+                <source src="assets/audio/win.mp3" type="audio/mp3" />
+            </audio>
+            <audio id="congrats_sound">
+                <source src="assets/audio/congrats.mp3" type="audio/mp3" />
+            </audio>
+            <audio id="fail_sound">
+                <source src="assets/audio/fail.mp3" type="audio/mp3" />
+            </audio>
+            <audio id="over_sound">
+                <source src="assets/audio/over.mp3" type="audio/mp3" />
+            </audio>
         </div>
         <div id="game-screen-container">
             <canvas id="game-screen"></canvas>
@@ -187,19 +209,13 @@
             </div>    
         </div>
        
-            <audio id="bg_music" loop>
-                <source src="assets/audio/bg.mp3" type="audio/mp3" />
-            </audio>
-            <audio id="pour_sound">
-                <source src="assets/audio/pour.mp3" type="audio/mp3" />
-            </audio>
-            <script>
-                window.addEventListener('load', (event) => {
-                    var bgMusic = document.getElementById("bg_music");
-                    bgMusic.volume = 0.1;
-                    bgMusic.play();
-                });
-            </script>
+        <script>
+            window.addEventListener('load', (event) => {
+                var bgMusic = document.getElementById("bg_music");
+                bgMusic.volume = 0.1;
+                bgMusic.play();
+            });
+        </script>
         <script src="src/index.js"></script>
         <script src="libs/bootstrap.bundle.min.js"></script>
 
