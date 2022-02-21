@@ -33,7 +33,7 @@ export default class Profile{
         context.fillStyle = "#ffffff";
         context.textAlign = "center";
         context.fillText(
-            this.heart.lives, 
+            this.game.user.daily.lives, 
             this.heart.position.x - 10, 
             this.heart.position.y + 20, 
         );
@@ -52,7 +52,7 @@ export default class Profile{
         context.fillStyle = "#ffffff";
         context.textAlign = "center";
         context.fillText(
-            this.can.count, 
+            this.game.user.can.count, 
             this.can.position.x - 18, 
             this.can.position.y + 20, 
         );
@@ -67,9 +67,6 @@ export default class Profile{
     }
 
     draw(context){
-        this.heart.lives = this.game.user.daily.lives
-        this.can.count = this.game.user.can.count
-
         this.drawUser(context);
         this.drawHeart(context);
         this.drawCan(context);

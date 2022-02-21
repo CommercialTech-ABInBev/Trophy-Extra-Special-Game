@@ -38,7 +38,7 @@ export default class Score{
 
     miss(){
         this.game.input.sound(this.game.input.failSound);
-        this.game.user.daily.lives -= 1; 
+        this.game.app.controller.updateDaily();
         this.game.gameState = GAMESTATE.MISSED;
         console.log("Missed!");
         this.emptyCups();
@@ -46,7 +46,7 @@ export default class Score{
 
     spill(){
         this.game.input.sound(this.game.input.failSound);
-        this.game.user.daily.lives -= 1; 
+        this.game.app.controller.updateDaily();
         this.game.gameState = GAMESTATE.SPILLED;
         console.log("Spilled!");        
         this.emptyCups();
@@ -62,7 +62,7 @@ export default class Score{
         if(fullCups.length === 3){
             this.game.input.sound(this.game.input.congratsSound);
             this.game.app.controller.updateCan();
-            this.game.user.daily.lives = 0; 
+            this.game.app.controller.updateDaily(true);
             this.game.gameState = GAMESTATE.CONGRATS;
             console.log("Congratulation!");
             this.game.input.sound(this.game.input.congratsSound)
