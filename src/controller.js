@@ -94,6 +94,23 @@ export default class AppController{
         });
     }
 
+    updateDailyCan(init = false){
+        const currentDaily = this.game.user.daily;
+        let daily = {daily: {lives: (currentDaily.lives - 1), modifiedOn: this.userService.formatDate()}};
+        const currentCan = this.game.user.can;
+        let can = {can: {count: (currentCan.count + 2), modifiedOn: this.userService.formatDate()}};
+        if(init){
+            daily = {daily: {lives: 100}};
+        }
+        this.userService.updateUser(
+            this.game.user.id, {...daily, ...can}
+        ).then((x) => {
+            this.game.user = {...this.game.user, ...daily, ...can};
+        }).catch((e) => {
+            console.log(e);
+        });
+    }
+
     getLeaderboard(){
         return new Promise((resolve, reject) => {
             this.userService.getUsers().then((users) => {
@@ -117,16 +134,6 @@ export default class AppController{
                 console.log(e);
             });
         });
-        // for(let i = 1; i <= 20; i++){
-        //     leaders += `
-        //     <tr>
-        //     <th scope="row">${i}</th>
-        //     <td>Oluwafemi Oyatokun Ayodeji</td>
-        //     <td>100</td>
-        //     </tr>
-        //     `;
-        // }
-        // return leaders
     }
 
 }
