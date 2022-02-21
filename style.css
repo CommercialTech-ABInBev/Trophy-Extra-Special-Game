@@ -128,8 +128,11 @@ button, input {
 }
 
 .trophy-title{
-	font-weight: bold;
 	margin-top: 36px;
+}
+.trophy-title h1{
+	font-weight: bold;
+	font-size: 40px !important;
 }
 .trophy-subtitle{
 	font-weight: normal;

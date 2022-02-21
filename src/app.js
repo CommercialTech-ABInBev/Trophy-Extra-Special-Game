@@ -45,11 +45,13 @@ export default class App{
         const restartBtn = document.querySelector("#restart-btn");
         const startBtn = document.querySelector("#start-btn");
         const waitBtn = document.querySelector("#wait-btn");
+        const homeBtn = document.querySelector("#home-btn");
         const continueBtn = document.querySelector("#continue-btn");
 
         restartBtn.classList.add("hide")
         startBtn.classList.add("hide")
         waitBtn.classList.add("hide")
+        homeBtn.classList.add("hide")
         continueBtn.classList.add("hide")
         result.querySelector("#result-img").classList.add("hide");
         result.classList.add("render");
@@ -98,6 +100,7 @@ export default class App{
                 result.querySelector("#result-title").innerHTML = "Game Over";
                 result.querySelector("#result-subtitle").innerHTML = "You're done for today.<br/> Wait until the next day.";
                 result.querySelector("#result-img").src = gif["wait"];
+                homeBtn.classList.remove("hide")
                 break;
             default:
                 restartBtn.classList.remove("hide")
@@ -171,6 +174,7 @@ export default class App{
     addResultListener(){
         const restartBtn = document.querySelector("#restart-btn");
         const waitBtn = document.querySelector("#wait-btn");
+        const homeBtn = document.querySelector("#home-btn");
 
         restartBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -183,6 +187,12 @@ export default class App{
             this.game.input.sound(this.game.input.overSound);
             this.game.gameState = GAMESTATE.GAMEOVER;
             this.renderResult();
+        });
+        homeBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.game.input.sound(this.game.input.pourSound);
+            this.game.gameState = GAMESTATE.INIT;
+            this.renderHome();
         });
 
     }
@@ -200,7 +210,10 @@ export default class App{
                     .then((x) => {
                         this.popUpToast("bg-info", "Good! Almost there! 😀");
                         this.game.user = x;
+
                         this.game.start();
+                        loginBtnDOM.disabled = false;
+
                         // this.controller.sendOTP()
                         //     .then((otp) => {
                         //         loginBtnDOM.disabled = false;

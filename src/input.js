@@ -7,6 +7,7 @@ export default class InputHandler{
     constructor(game) {
         this.game = game;
         this.canvas = document.getElementById("game-screen");
+        this.bgMusic = document.getElementById("bg_music");
         this.startSound = document.getElementById("start_sound");
         this.pourSound = document.getElementById("pour_sound");
         this.winSound = document.getElementById("win_sound");
@@ -14,6 +15,13 @@ export default class InputHandler{
         this.failSound = document.getElementById("fail_sound");
         this.overSound = document.getElementById("over_sound");
         this.score = new Score(game);
+        let clickCounter = 0;
+        document.addEventListener('click', (event) => {
+            clickCounter += 1;
+            if(clickCounter === 1){
+                this.sound(this.bgMusic, 0.1)
+            }
+        });
 
         this.canvas.addEventListener("click", (e) => {
             if(game.gameState === GAMESTATE.RUNNING){
@@ -53,10 +61,10 @@ export default class InputHandler{
         this.game.startBtn.classList.add("hide");
         this.game.continueBtn.classList.add("hide");
     }
-    sound(audio){
+    sound(audio, volume = 0.2){
         audio.pause();
         audio.currentTime = 0;
-        audio.volume = 0.2;
+        audio.volume = volume;
         audio.play();
 
     }
