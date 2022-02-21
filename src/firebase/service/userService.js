@@ -10,7 +10,11 @@ export default class UserService {
     }
     
     getUsers(){
-        this.repository.getAllUsers((x) => {});
+        return new Promise((resolve) => {
+            this.repository.getAllUsers((x) => {
+                resolve(x);
+            });    
+        })
     }
 
     getUserByEmail(email){

@@ -94,4 +94,39 @@ export default class AppController{
         });
     }
 
+    getLeaderboard(){
+        return new Promise((resolve, reject) => {
+            this.userService.getUsers().then((users) => {
+                let leaders = '';
+                users = users.filter((u) => {
+                    return (u.id && u.fullName && u.can)
+                })
+                .sort((a,b) => (a.can.modifiedOn < b.can.modifiedOn) ? 1 : ((b.can.modifiedOn < a.can.modifiedOn) ? -1 : 0))
+                .sort((a,b) => (a.can.count < b.can.count) ? 1 : ((b.can.count < a.can.count) ? -1 : 0));
+                users.forEach((user, index) => {
+                    leaders += `
+                        <tr>
+                            <th scope="row">${index+1}</th>
+                            <td>${user.fullName}</td>
+                            <td>${user.can.count}</td>
+                        </tr>
+                    `;                        
+                });
+                resolve(leaders);
+            }).catch((e) => {
+                console.log(e);
+            });
+        });
+        // for(let i = 1; i <= 20; i++){
+        //     leaders += `
+        //     <tr>
+        //     <th scope="row">${i}</th>
+        //     <td>Oluwafemi Oyatokun Ayodeji</td>
+        //     <td>100</td>
+        //     </tr>
+        //     `;
+        // }
+        // return leaders
+    }
+
 }

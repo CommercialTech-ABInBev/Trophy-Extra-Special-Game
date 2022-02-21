@@ -13,6 +13,7 @@ export default class App{
         this.addPageButton(".signin-btn")
 
         this.addNavButton("#login-template","HOME");
+        this.addNavButton("#leaderboard-template","HOME");
         this.addNavButton("#register-template","LOGIN");
         this.addNavButton("#otp-template","LOGIN");
 
@@ -28,6 +29,7 @@ export default class App{
         document.querySelector("#login-template").classList.remove("render");
         document.querySelector("#result-template").classList.remove("render");
         document.querySelector("#otp-template").classList.remove("render");
+        document.querySelector("#leaderboard-template").classList.remove("render");
     }
 
     menu(){
@@ -131,7 +133,17 @@ export default class App{
         form.classList.add("render");
         document.getElementById("user-email-address").innerHTML = this.controller.user.email;
     }
-    
+
+    renderLeaderboard(){
+        this.renderInit();
+        const board = document.querySelector("#leaderboard-template")
+        board.classList.add("render");
+        board.querySelector("#table-data").innerHTML = `<div class="lds-dual-ring"></div>`;
+        this.controller.getLeaderboard().then((leaders) => {
+            board.querySelector("#table-data").innerHTML = leaders;
+        });
+    }
+
     addNavButton(selector, template){
         document.querySelector(selector).querySelectorAll(".back-btn").forEach((node) => {
             node.addEventListener("click", (e) => {
@@ -175,6 +187,12 @@ export default class App{
         const restartBtn = document.querySelector("#restart-btn");
         const waitBtn = document.querySelector("#wait-btn");
         const homeBtn = document.querySelector("#home-btn");
+        const leaderboardBtn = document.querySelector("#leaderboard-btn");
+
+        leaderboardBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.renderLeaderboard();
+        });
 
         restartBtn.addEventListener("click", (e) => {
             e.preventDefault();

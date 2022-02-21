@@ -63,6 +63,9 @@
                                     <div class="text-center mt-4 pt-4">
                                         <img alt="" src="assets/images/start_btn.png" class="signin-btn" id="img-start"/>
                                     </div>                    
+                                    <div class="text-center m-4">
+                                        <button id="leaderboard-btn" class="btn btn-primary btn-lg">🏆 Leaderboard 🏆</button>
+                                    </div>    
                                 </div>
                             </div>
                             <div class="col d-none d-lg-block p-0">
@@ -204,6 +207,34 @@
                             </div>  
             
                         </div>
+                    </div>
+                </div>
+
+                <div class="row page" id="leaderboard-template">
+                    <div class="col-md-6 offset-md-3 col-sm-12 p-0">
+                        <div class="card card-dark p-4">
+                            <h1 class="text-center text-primary">Leaderboard</h1>
+                            <p class="text-light text-center">Top winners</p>
+                            <div class="table-scrollable m-2">
+                                <table class="table table-hover table-light">
+                                    <thead class="table-primary sticky-top">
+                                      <tr>
+                                        <th scope="col">#Rank</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Can</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="table-data">
+                                    </tbody>
+                                  </table>
+                            </div>
+                                
+                            <div class="row m-4">
+                                <div class="col">
+                                    <span class="back-btn hover float-start">Back</span>
+                                </div>
+                            </div>  
+                       </div>
                     </div>
                 </div>
 
