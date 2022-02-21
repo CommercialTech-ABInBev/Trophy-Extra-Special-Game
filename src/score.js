@@ -65,7 +65,6 @@ export default class Score{
             this.game.app.controller.updateDaily(true);
             this.game.gameState = GAMESTATE.CONGRATS;
             console.log("Congratulation!");
-            this.game.input.sound(this.game.input.congratsSound)
             this.emptyCups();
         }
     }
