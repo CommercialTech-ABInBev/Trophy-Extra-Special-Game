@@ -62,6 +62,8 @@ export default class App{
         result.querySelector("#result-subtitle").innerHTML = "";
         result.querySelector("#result-img").src = png["can"];
 
+        const fullCups = this.game.cups.filter((cup) => { return cup.full});
+
         switch(state){
             case GAMESTATE.INIT:
                  startBtn.classList.remove("hide");
@@ -78,7 +80,13 @@ export default class App{
                 break;
             case GAMESTATE.WON:
                 result.querySelector("#result-title").innerHTML = "Won";
-                result.querySelector("#result-subtitle").innerHTML = "Awesome!";
+                if(fullCups.length === 1){
+                    result.querySelector("#result-subtitle").innerHTML = "Well-done, step into our VIP room.";
+                } else if(fullCups.length === 2) {
+                    result.querySelector("#result-subtitle").innerHTML = "You are Extra Special, Step into our VVIP.";
+                } else {
+                    result.querySelector("#result-subtitle").innerHTML = "Awesome!";                    
+                }
                 result.querySelector("#result-img").src = gif["won"];
                 continueBtn.classList.remove("hide");
                 break;
@@ -94,7 +102,7 @@ export default class App{
                 break;
             case GAMESTATE.CONGRATS:
                 result.querySelector("#result-title").innerHTML = "Congratulations";
-                result.querySelector("#result-subtitle").innerHTML = "Wow! You sure are skilled, and won for yourself 2 cans of trophy beer";
+                result.querySelector("#result-subtitle").innerHTML = "We’ve got an Extra Special guest in the house, Cheers!";
                 result.querySelector("#result-img").src = gif["congrats"];
                 waitBtn.classList.remove("hide")
                 break;

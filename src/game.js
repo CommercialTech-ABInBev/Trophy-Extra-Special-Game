@@ -39,6 +39,8 @@ export default class Game{
         this.can.reset();
         this.app.renderResult();
 
+        this.checkDaily("")
+
         if(this.user.daily.lives > 0){
             this.cups = [
                 new Cup(this, {x: (this.cupWidth) - (this.cupWidth/2)}),
