@@ -6,7 +6,6 @@ export default class AppController{
         this.game = game;
         this.userService = new UserService();
         this.userService.init();
-        this.user = {};
     }
 
     register(model){
@@ -24,7 +23,7 @@ export default class AppController{
         return new Promise((resolve, reject) => {
             const task = this.userService.getUserByEmail(email);
             if(task){
-                this.user = task;
+                this.game.user = task;
                 resolve(task);
             } else {
                 reject("Service error");
@@ -34,7 +33,7 @@ export default class AppController{
 
     verify(otpCode){
         return new Promise((resolve, reject) => {
-            const task = this.user.otp.code === otpCode;
+            const task = this.game.user.otp.code === otpCode;
             if(task){
                 resolve(task);
             } else {
@@ -47,16 +46,16 @@ export default class AppController{
         const otpCode = Math.trunc(Math.random() * (999999 - 0) + 0).toString().padStart(6, '0');
         const nowDate = new Date();
         const expireDate = new Date(nowDate.setHours(nowDate.getHours() + 12));
-        this.user.otp = {code: otpCode, expireDate};
+        this.game.user.otp = {code: otpCode, expireDate};
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
                 url: 'https://client-mailer.herokuapp.com/api/send-mail',
                 data: {
                     "from": "trophystoutgames@gmail.com",
-                    "to": this.user.emailAddress,
+                    "to": this.game.user.emailAddress,
                     "subject": "Trophy Extra Special Bar",
-                    "html": `<h1>One-time Password</h1><p>${this.user.otp.code}</p>`
+                    "html": `<h1>One-time Password</h1><p>${this.game.user.otp.code}</p>`
                 }
             }).then((data) => {
                 resolve(data);
@@ -132,31 +131,32 @@ export default class AppController{
         });
     }
 
-    checkDaily(){
-        console.log("Daily check!")
-        console.log("User: ", this.user)
-        console.log("modifiedOn: ", this.user.daily.modifiedOn)
-        console.log(this.dateParser(this.userService.formatDate()))
-        if(this.user.daily.lives > 0){
+    checkDaily(){        
+        const daily = this.game.user.daily;
+        if(daily.lives > 0){
+            console.log("Live")
             return true
         }
+        const lastDate = new Date(daily.modifiedOn);
+        const start = new Date();
+        start.setHours(0,0,0,0);
 
-/*
-        if(m && ld < tm){
+        const isNoon = new Date().getHours() >= 12;
+        const noon = new Date();
+        noon.setHours(12,0,0,0);
+
+        if(!isNoon && lastDate < start){
+            console.log("AM")
             this.updateDaily(true)
             return true
         }
-        if(a && ld < ta){
+
+        if(isNoon && lastDate < noon){
+            console.log("PM")
             this.updateDaily(true)
             return true
         }
-*/
-
-    }
-    dateParser(date){
-        const arr = date.split(" ")
-        if(arr.length === 2)
-            return{date: arr[0], time: arr[1]}
-        return {};
+        
+        return false;
     }
 }

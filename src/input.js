@@ -54,12 +54,14 @@ export default class InputHandler{
     }
 
     play(){
-        document.getElementById("app").classList.add("hide")
-        this.game.can.reset();
-        this.game.app.renderInit();
-        this.game.gameState = GAMESTATE.RUNNING;
-        this.game.startBtn.classList.add("hide");
-        this.game.continueBtn.classList.add("hide");
+        if(this.game.user.daily.lives > 0 && this.game.user.daily.lives <= 3){
+            document.getElementById("app").classList.add("hide")
+            this.game.can.reset();
+            this.game.app.renderInit();
+            this.game.gameState = GAMESTATE.RUNNING;
+            this.game.startBtn.classList.add("hide");
+            this.game.continueBtn.classList.add("hide");            
+        }
     }
     sound(audio, volume = 0.2){
         audio.pause();

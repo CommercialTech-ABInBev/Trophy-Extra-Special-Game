@@ -40,7 +40,6 @@ export default class Score{
         this.game.input.sound(this.game.input.failSound);
         this.game.app.controller.updateDaily();
         this.game.gameState = GAMESTATE.MISSED;
-        console.log("Missed!");
         this.emptyCups();
     }
 
@@ -48,17 +47,14 @@ export default class Score{
         this.game.input.sound(this.game.input.failSound);
         this.game.app.controller.updateDaily();
         this.game.gameState = GAMESTATE.SPILLED;
-        console.log("Spilled!");        
         this.emptyCups();
     }
 
     win(){
         this.game.input.sound(this.game.input.winSound);
         this.game.gameState = GAMESTATE.WON;
-        console.log("Won!");
 
         const fullCups = this.game.cups.filter((cup) => { return cup.full});
-        console.log("Full cups: ",fullCups.length);
         if(fullCups.length === 3){
             this.game.input.sound(this.game.input.congratsSound);
             this.game.app.controller.updateDailyCan();
