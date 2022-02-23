@@ -70,7 +70,7 @@ export default class AppController{
         const currentDaily = this.game.user.daily;
         let daily = {daily: {lives: (currentDaily.lives - 1), modifiedOn: this.userService.formatDate()}};
         if(init){
-            daily = {daily: {lives: 100}};
+            daily = {daily: {lives: 3, modifiedOn: this.userService.formatDate()}};
         }
         this.userService.updateUser(
             this.game.user.id, daily
@@ -94,14 +94,10 @@ export default class AppController{
         });
     }
 
-    updateDailyCan(init = false){
-        const currentDaily = this.game.user.daily;
-        let daily = {daily: {lives: (currentDaily.lives - 1), modifiedOn: this.userService.formatDate()}};
+    updateDailyCan(){
+        const daily = {daily: {lives: 0, modifiedOn: this.userService.formatDate()}};
         const currentCan = this.game.user.can;
         let can = {can: {count: (currentCan.count + 2), modifiedOn: this.userService.formatDate()}};
-        if(init){
-            daily = {daily: {lives: 100}};
-        }
         this.userService.updateUser(
             this.game.user.id, {...daily, ...can}
         ).then((x) => {
@@ -136,4 +132,31 @@ export default class AppController{
         });
     }
 
+    checkDaily(){
+        console.log("Daily check!")
+        console.log("User: ", this.user)
+        console.log("modifiedOn: ", this.user.daily.modifiedOn)
+        console.log(this.dateParser(this.userService.formatDate()))
+        if(this.user.daily.lives > 0){
+            return true
+        }
+
+/*
+        if(m && ld < tm){
+            this.updateDaily(true)
+            return true
+        }
+        if(a && ld < ta){
+            this.updateDaily(true)
+            return true
+        }
+*/
+
+    }
+    dateParser(date){
+        const arr = date.split(" ")
+        if(arr.length === 2)
+            return{date: arr[0], time: arr[1]}
+        return {};
+    }
 }
