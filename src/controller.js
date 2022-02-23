@@ -159,4 +159,16 @@ export default class AppController{
         
         return false;
     }
+
+    countDown(){
+        const now = new Date();
+        const isNoon = new Date().getHours() >= 12;
+        const noon = new Date();
+        noon.setHours(12,0,0,0);
+        const end = new Date();
+        end.setHours(23,59,59,999);
+
+        const time = isNoon? Math.abs(end - now) : Math.abs(now - noon);
+        return `${time}`;
+    }
 }

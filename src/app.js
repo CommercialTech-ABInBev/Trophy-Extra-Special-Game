@@ -107,8 +107,14 @@ export default class App{
                 waitBtn.classList.remove("hide")
                 break;
             case GAMESTATE.GAMEOVER:
-                result.querySelector("#result-title").innerHTML = "Game Over";
-                result.querySelector("#result-subtitle").innerHTML = "You're done for today.<br/> Wait until the next day.";
+                result.querySelector("#result-title").innerHTML = "Waiting Mood";
+                setInterval(()=> {
+                    result.querySelector("#result-subtitle").innerHTML = `
+                        You've exhausted your chance. 
+                        <br/>Counting down to next turn.
+                        <h3 class="mt-4">${this.controller.countDown()}</h3>
+                    `;
+                }, 1000);
                 result.querySelector("#result-img").src = gif["wait"];
                 homeBtn.classList.remove("hide")
                 break;
@@ -139,7 +145,7 @@ export default class App{
         this.renderInit();
         const form = document.querySelector("#otp-template")
         form.classList.add("render");
-        document.getElementById("user-email-address").innerHTML = this.controller.user.email;
+        document.getElementById("user-email-address").innerHTML = this.game.user.emailAddress;
     }
 
     renderLeaderboard(){
