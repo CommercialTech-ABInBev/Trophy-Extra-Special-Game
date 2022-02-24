@@ -1,5 +1,5 @@
 import axios from 'axios';
-import UserService from '/src/firebase/service/userService';
+import UserService from '../firebase/service/userService';
 
 export default class AppController{
     constructor(game){
@@ -165,9 +165,12 @@ export default class AppController{
     }
 
     countDown(){
-        if(this.checkDaily()){
-            window.location.href = window.location.origin
-            return "Click home and start game";
+        const user = this.game.user;
+        if(user && user.daily && user.can && user.fullName){
+            if(this.checkDaily()){
+                window.location.href = window.location.origin
+                return "Click home and start game";
+            }
         }
         const now = new Date();
         const isNoon = new Date().getHours() >= 12;

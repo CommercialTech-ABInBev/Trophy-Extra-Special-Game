@@ -67,9 +67,12 @@ export default class Profile{
     }
 
     draw(context){
-        this.drawUser(context);
-        this.drawHeart(context);
-        this.drawCan(context);
+        const user = this.game.user;
+        if(user && user.daily && user.can && user.fullName){
+            this.drawUser(context);
+            this.drawHeart(context);
+            this.drawCan(context);    
+        }
     }
 
     update(deltaTime){        
