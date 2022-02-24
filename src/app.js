@@ -110,8 +110,8 @@ export default class App{
                 result.querySelector("#result-title").innerHTML = "Waiting Mood";
                 setInterval(()=> {
                     result.querySelector("#result-subtitle").innerHTML = `
-                        You've exhausted your chance. 
-                        <br/>Counting down to next turn.
+                        You've exhausted your chance this time. 
+                        <br/>Countdown to next turn.
                         <h3 class="mt-4">${this.controller.countDown()}</h3>
                     `;
                 }, 1000);
