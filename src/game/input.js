@@ -1,5 +1,5 @@
-import * as Constants from '/src/constants';
-import Score from '/src/score';
+import * as Constants from '../utils/constants';
+import Score from './score';
 
 const GAMESTATE = Constants.GAMESTATE;
 

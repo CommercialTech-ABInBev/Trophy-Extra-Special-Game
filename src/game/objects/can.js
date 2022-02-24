@@ -1,4 +1,4 @@
-import * as Constants from '/src/constants';
+import * as Constants from '../../utils/constants';
 const GAMESTATE = Constants.GAMESTATE;
 
 export default class Can{

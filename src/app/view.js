@@ -1,7 +1,7 @@
-import gif from "../assets/images/*.gif";
-import png from "../assets/images/*.png";
-import AppController from '/src/controller';
-import * as Constants from '/src/constants';
+import gif from "../../assets/images/*.gif";
+import png from "../../assets/images/*.png";
+import AppController from './controller';
+import * as Constants from '../utils/constants';
 const GAMESTATE = Constants.GAMESTATE;
 
 export default class App{

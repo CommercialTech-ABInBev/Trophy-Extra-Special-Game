@@ -1,4 +1,4 @@
-import Game from '/src/game';
+import Game from '/src/game/scene';
 
 let canvas = document.getElementById("game-screen");
 let context = canvas.getContext("2d");

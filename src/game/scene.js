@@ -1,9 +1,9 @@
-import Profile from '/src/profile';
-import Can from '/src/can';
-import Cup from '/src/cup';
-import InputHandler from '/src/input';
-import * as Constants from '/src/constants';
-import App from '/src/app';
+import Profile from './profile';
+import Can from './objects/can';
+import Cup from './objects/cup';
+import InputHandler from './input';
+import * as Constants from '../utils/constants';
+import App from '../app/view';
 
 const GAMESTATE = Constants.GAMESTATE;
 
