@@ -3,7 +3,6 @@ import Can from '/src/can';
 import Cup from '/src/cup';
 import InputHandler from '/src/input';
 import * as Constants from '/src/constants';
-import StateManager from '/src/stateManager'
 import App from '/src/app';
 
 const GAMESTATE = Constants.GAMESTATE;
@@ -14,7 +13,6 @@ export default class Game{
         this.gameHeight = gameHeight;
         this.gameObjects = [];
         this.gameState = GAMESTATE.MENU;
-        this.stateManager = new StateManager(this);
 
         this.appView = document.getElementById("app");
         this.startBtn = document.getElementById("start-btn");
@@ -38,6 +36,7 @@ export default class Game{
     start(){
         this.can.reset();
         this.app.renderResult();
+        this.gameObjects = [this.profile];            
 
         if(this.app.controller.checkDaily()){
             this.cups = [
@@ -45,7 +44,7 @@ export default class Game{
                 new Cup(this, {x: ((this.gameWidth/2 - (this.cupWidth/2)))}),
                 new Cup(this, {x: (this.gameWidth - this.cupWidth) - (this.cupWidth/2)}),
             ];
-            this.gameObjects = [this.profile,this.can,...this.cups,this.stateManager];            
+            this.gameObjects = [this.profile,this.can,...this.cups];            
         } else {
             this.gameState = GAMESTATE.GAMEOVER;
             this.app.renderResult();  
@@ -56,10 +55,6 @@ export default class Game{
         this.gameState = GAMESTATE.MENU;
         this.appView.classList.remove("hide");
         this.app.menu();     
-        
-        // this.app.renderResult(GAMESTATE.CONGRATS)
-        // this.app.renderLogin();
-        // this.start();
     }
 
     update(deltaTime){

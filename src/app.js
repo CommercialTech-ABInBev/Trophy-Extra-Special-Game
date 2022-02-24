@@ -55,7 +55,7 @@ export default class App{
         restartBtn.classList.add("hide")
         startBtn.classList.add("hide")
         waitBtn.classList.add("hide")
-        homeBtn.classList.add("hide")
+        // homeBtn.classList.add("hide")
         logoutBtn.classList.add("hide")
         continueBtn.classList.add("hide")
         shareBtn.classList.add("hide");
@@ -111,7 +111,6 @@ export default class App{
                 shareBtn.classList.remove("hide")
                 waitBtn.classList.remove("hide")
                 logoutBtn.classList.remove("hide")
-                homeBtn.classList.remove("hide")
                 break;
             case GAMESTATE.GAMEOVER:
                 result.querySelector("#result-title").innerHTML = "Waiting Mood";
@@ -123,7 +122,6 @@ export default class App{
                     `;
                 }, 1000);
                 result.querySelector("#result-img").src = gif["wait"];
-                homeBtn.classList.remove("hide")
                 logoutBtn.classList.remove("hide")
                 break;
             default:
