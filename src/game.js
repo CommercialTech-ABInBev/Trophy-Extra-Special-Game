@@ -57,6 +57,7 @@ export default class Game{
         this.appView.classList.remove("hide");
         this.app.menu();     
         
+        // this.app.renderResult(GAMESTATE.CONGRATS)
         // this.app.renderLogin();
         // this.start();
     }

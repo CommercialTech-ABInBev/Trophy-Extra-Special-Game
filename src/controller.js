@@ -8,6 +8,10 @@ export default class AppController{
         this.userService.init();
     }
 
+    logout(){
+        this.game.user = {};
+    }
+
     register(model){
         return new Promise((resolve, reject) => {
             if(this.userService.getUserByEmail(model.emailAddress)){
@@ -46,7 +50,7 @@ export default class AppController{
         const otpCode = Math.trunc(Math.random() * (999999 - 0) + 0).toString().padStart(6, '0');
         const nowDate = new Date();
         const expireDate = new Date(nowDate.setHours(nowDate.getHours() + 12));
-        this.game.user.otp = {code: otpCode, expireDate};
+        this.game.user.otp = {code: otpCode, expireDate, used: false};
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
@@ -161,6 +165,10 @@ export default class AppController{
     }
 
     countDown(){
+        if(this.checkDaily()){
+            window.location.href = window.location.origin
+            return "Click home and start game";
+        }
         const now = new Date();
         const isNoon = new Date().getHours() >= 12;
         const noon = new Date();
@@ -174,6 +182,6 @@ export default class AppController{
         seconds = seconds % 3600;
         const minutes = parseInt( seconds / 60 );
         seconds = seconds % 60;
-        return hours+"hour : "+minutes+"minute : "+seconds+"seconds ";
+        return hours+"<sub>hour</sub> : "+minutes+"<sub>minute</sub> : "+seconds+"<sub>seconds</sub> ";
     }
 }

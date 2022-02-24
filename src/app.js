@@ -48,13 +48,17 @@ export default class App{
         const startBtn = document.querySelector("#start-btn");
         const waitBtn = document.querySelector("#wait-btn");
         const homeBtn = document.querySelector("#home-btn");
+        const logoutBtn = document.querySelector("#logout-btn");
         const continueBtn = document.querySelector("#continue-btn");
+        const shareBtn = document.querySelector("#share-btn");
 
         restartBtn.classList.add("hide")
         startBtn.classList.add("hide")
         waitBtn.classList.add("hide")
         homeBtn.classList.add("hide")
+        logoutBtn.classList.add("hide")
         continueBtn.classList.add("hide")
+        shareBtn.classList.add("hide");
         result.querySelector("#result-img").classList.add("hide");
         result.classList.add("render");
         
@@ -104,7 +108,10 @@ export default class App{
                 result.querySelector("#result-title").innerHTML = "Congratulations";
                 result.querySelector("#result-subtitle").innerHTML = "We’ve got an Extra Special guest in the house, Cheers!";
                 result.querySelector("#result-img").src = gif["congrats"];
+                shareBtn.classList.remove("hide")
                 waitBtn.classList.remove("hide")
+                logoutBtn.classList.remove("hide")
+                homeBtn.classList.remove("hide")
                 break;
             case GAMESTATE.GAMEOVER:
                 result.querySelector("#result-title").innerHTML = "Waiting Mood";
@@ -112,11 +119,12 @@ export default class App{
                     result.querySelector("#result-subtitle").innerHTML = `
                         You've exhausted your chance this time. 
                         <br/>Countdown to next turn.
-                        <h3 class="mt-4">${this.controller.countDown()}</h3>
+                        <h4 class="mt-4">${this.controller.countDown()}</h4>
                     `;
                 }, 1000);
                 result.querySelector("#result-img").src = gif["wait"];
                 homeBtn.classList.remove("hide")
+                logoutBtn.classList.remove("hide")
                 break;
             default:
                 restartBtn.classList.remove("hide")
@@ -137,7 +145,7 @@ export default class App{
 
     renderLogin(){
         this.renderInit();
-        if(this.game.user.otp && this.game.user.otp.code){
+        if(this.game.user.otp && this.game.user.otp.used){
             this.game.start();
         } else {
             const form = document.querySelector("#login-template")
@@ -205,7 +213,14 @@ export default class App{
         const restartBtn = document.querySelector("#restart-btn");
         const waitBtn = document.querySelector("#wait-btn");
         const homeBtn = document.querySelector("#home-btn");
+        const logoutBtn = document.querySelector("#logout-btn");
         const leaderboardBtn = document.querySelector("#leaderboard-btn");
+
+        logoutBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.controller.logout();
+            this.renderHome();
+        });
 
         leaderboardBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -296,6 +311,7 @@ export default class App{
             if(otpInput){
                 this.controller.verify(otpInput.trim())
                     .then((x) => {
+                        this.game.user.otp.used = true;
                         this.popUpToast("bg-success", "Booze! You're welcome! 😀");
                         confirmBtnDOM.disabled = false;
                         this.game.start();
