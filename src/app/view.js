@@ -71,7 +71,8 @@ export default class App{
         switch(state){
             case GAMESTATE.INIT:
                  startBtn.classList.remove("hide");
-                break;
+                 logoutBtn.classList.remove("hide")
+                 break;
             case GAMESTATE.MISSED:
                 result.querySelector("#result-title").innerHTML = "Missed";
                 result.querySelector("#result-subtitle").innerHTML = "Awk! You lost a chance";
