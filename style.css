@@ -94,13 +94,13 @@ body{
 	height: 90vh;
 }
 
-input {
+select, input {
 	background: #31313b !important;
 	color: #ffffff !important;
 	border: none !important;
 	box-shadow: 3px 5px 4px rgba(0, 0, 0, 0.1);
 }
-button, input {
+button, input, select{
 	height: 64px;
 }
 
