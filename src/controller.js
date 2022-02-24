@@ -168,7 +168,12 @@ export default class AppController{
         const end = new Date();
         end.setHours(23,59,59,999);
 
-        const time = isNoon? Math.abs(end - now) : Math.abs(now - noon);
-        return `${time}`;
+        const ms = isNoon? Math.abs(end - now) : Math.abs(now - noon);
+        let seconds = Math.ceil(ms / 1000);
+        const hours = parseInt( seconds / 3600 );
+        seconds = seconds % 3600;
+        const minutes = parseInt( seconds / 60 );
+        seconds = seconds % 60;
+        return hours+"hour : "+minutes+"minute : "+seconds+"seconds ";
     }
 }
