@@ -7,7 +7,7 @@ const GAMESTATE = Constants.GAMESTATE;
 export default class App{
     constructor(game){
         this.game = game;
-
+        
         this.controller = new AppController(game);
         this.addPageButton(".signup-btn")
         this.addPageButton(".signin-btn")
@@ -260,18 +260,18 @@ export default class App{
                         this.popUpToast("bg-info", "Good! Almost there! 😀");
                         this.game.user = x;
 
-                        this.game.start();
-                        loginBtnDOM.disabled = false;
+                        // this.game.start();
+                        // loginBtnDOM.disabled = false;
 
-                        // this.controller.sendOTP()
-                        //     .then((otp) => {
-                        //         loginBtnDOM.disabled = false;
-                        //         this.renderOTP();                        
-                        //     }).catch((e) => {
-                        //         console.log(e);
-                        //         loginBtnDOM.disabled = false;
-                        //         this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
-                        //     });
+                        this.controller.sendOTP()
+                            .then((otp) => {
+                                loginBtnDOM.disabled = false;
+                                this.renderOTP();                        
+                            }).catch((e) => {
+                                console.log(e);
+                                loginBtnDOM.disabled = false;
+                                this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
+                            });
                     }).catch((e) => {
                         console.log(e);
                         loginBtnDOM.disabled = false;
