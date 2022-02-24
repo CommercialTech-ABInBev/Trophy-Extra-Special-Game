@@ -257,14 +257,16 @@ export default class App{
             if(emailInput){
                 this.controller.login(emailInput.trim())
                     .then((x) => {
-                        this.popUpToast("bg-info", "Good! Almost there! 😀");
+                        this.popUpToast("bg-info", "Good! You're almost there! 😀");
                         this.game.user = x;
 
                         // this.game.start();
                         // loginBtnDOM.disabled = false;
+                        // this.controller.clearForm();
 
                         this.controller.sendOTP()
                             .then((otp) => {
+                                this.controller.clearForm();
                                 loginBtnDOM.disabled = false;
                                 this.renderOTP();                        
                             }).catch((e) => {
@@ -309,6 +311,7 @@ export default class App{
             if(otpInput){
                 this.controller.verify(otpInput.trim())
                     .then((x) => {
+                        this.controller.clearForm();
                         this.game.user.otp.used = true;
                         this.popUpToast("bg-success", "Booze! You're welcome! 😀");
                         confirmBtnDOM.disabled = false;
@@ -348,6 +351,7 @@ export default class App{
                 };
                 this.controller.register(newUser)
                     .then((x) => {
+                        this.controller.clearForm();
                         this.popUpToast("bg-success", "Oh great! Your registration is successful 😀");
                         registerBtnDOM.disabled = false;
                         this.renderLogin();    

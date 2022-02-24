@@ -8,7 +8,19 @@ export default class AppController{
         this.userService.init();
     }
 
+    clearForm(){
+        document.querySelector("#register-template").querySelector("#fullname").value = ""
+        document.querySelector("#register-template").querySelector("#email-address").value = ""
+        document.querySelector("#register-template").querySelector("#phone-number").value = ""
+        document.querySelector("#register-template").querySelector("#city").value = ""
+        document.querySelector("#register-template").querySelector("#state").value = ""
+
+        document.querySelector("#login-template").querySelector("#email-address").value = ""
+        document.querySelector("#otp-template").querySelector("#otp-code").value = ""
+    }
+
     logout(){
+        this.clearForm();
         this.game.user = {};
     }
 
