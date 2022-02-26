@@ -55,8 +55,6 @@ export default class Game{
         this.gameState = GAMESTATE.MENU;
         this.appView.classList.remove("hide");
         this.app.menu();     
-
-        this.app.renderResult(GAMESTATE.CONGRATS)
     }
 
     update(deltaTime){
