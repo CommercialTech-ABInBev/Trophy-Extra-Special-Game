@@ -21,6 +21,7 @@ export default class App{
         this.addOtpListener();
         this.addRegisterListerner();
         this.addResultListener();
+        this.addShareListener();
     }
 
     renderInit(){
@@ -261,20 +262,20 @@ export default class App{
                         this.popUpToast("bg-info", "Good! You're almost there! 😀");
                         this.game.user = x;
 
-                        // this.game.start();
-                        // loginBtnDOM.disabled = false;
-                        // this.controller.clearForm();
+                        this.game.start();
+                        loginBtnDOM.disabled = false;
+                        this.controller.clearForm();
 
-                        this.controller.sendOTP()
-                            .then((otp) => {
-                                this.controller.clearForm();
-                                loginBtnDOM.disabled = false;
-                                this.renderOTP();                        
-                            }).catch((e) => {
-                                console.log(e);
-                                loginBtnDOM.disabled = false;
-                                this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
-                            });
+                        // this.controller.sendOTP()
+                        //     .then((otp) => {
+                        //         this.controller.clearForm();
+                        //         loginBtnDOM.disabled = false;
+                        //         this.renderOTP();                        
+                        //     }).catch((e) => {
+                        //         console.log(e);
+                        //         loginBtnDOM.disabled = false;
+                        //         this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
+                        //     });
                     }).catch((e) => {
                         console.log(e);
                         loginBtnDOM.disabled = false;
@@ -368,6 +369,32 @@ export default class App{
         });        
     }
 
+    addShareListener(){
+        document.querySelectorAll(".share-channel").forEach((node) => {
+            node.addEventListener("click", (e) => {
+                e.preventDefault();
+                const shareText = "Hey Stout Lover, play the fill-a-cup game and win up to 24 cans of Trophy Extra Special Stout."
+                const shareLink = window.location.origin;
+                const shareContent = shareText + " " + shareLink;
+
+                const channel = node.getAttribute("data-channel");
+                switch(channel){
+                    case "whatsapp":
+                        window.open(`whatsapp://send?text=${shareContent}`)
+                        break;
+                    case "twitter":
+                        window.open(`https://twitter.com/intent/tweet?text=${shareContent}`)
+                        break;
+                    case "copy":
+                        navigator.clipboard.writeText(shareContent);
+                        this.popUpToast("bg-success", "Copied! You can paste now.");
+                        break;
+                    default:
+                        break;
+                }
+            });
+        })
+    }
     popUpToast(color="bg-primary", text="Drink!", time=3000){
         document.querySelector("#notification").innerHTML = `
         <div class="toast show align-items-center text-white ${color} border-0" role="alert" aria-live="assertive" aria-atomic="true">
