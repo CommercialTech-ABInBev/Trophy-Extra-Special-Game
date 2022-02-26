@@ -72,7 +72,8 @@ export default class AppController{
                     "to": this.game.user.emailAddress,
                     "subject": "Trophy Extra Special Bar",
                     "html": `<h1>One-time Password</h1><p>${this.game.user.otp.code}</p>`
-                }
+                }, 
+                headers: {'API-Auth-Key': '9iU3zyX8IA6UtJxiGDOfgoq0Mcngz1Gir0JnenUfQxZ6AscuTpu0BvRRfuew5H8MXEvAiKAkDCh8mcLbV9sAbsik3fIahjGYzV4u'}
             }).then((data) => {
                 resolve(data);
             }).catch((error) => {
