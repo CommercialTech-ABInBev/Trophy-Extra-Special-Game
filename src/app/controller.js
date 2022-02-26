@@ -103,7 +103,6 @@ export default class AppController{
         this.userService.updateUser(
             this.game.user.id, can
         ).then((x) => {
-            console.log("controller: ",x)
             this.game.user = {...this.game.user,...can};
         }).catch((e) => {
             console.log(e);
@@ -151,7 +150,6 @@ export default class AppController{
     checkDaily(){        
         const daily = this.game.user.daily;
         if(daily.lives > 0){
-            console.log("Live")
             return true
         }
         const lastDate = new Date(daily.modifiedOn);
@@ -163,13 +161,11 @@ export default class AppController{
         noon.setHours(12,0,0,0);
 
         if(!isNoon && lastDate < start){
-            console.log("AM")
             this.updateDaily(true)
             return true
         }
 
         if(isNoon && lastDate < noon){
-            console.log("PM")
             this.updateDaily(true)
             return true
         }

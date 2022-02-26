@@ -19,6 +19,7 @@ export default class UserRepository{
   init(){
     console.log(serverTimestamp());
   }
+  
   getAllUsers (callback){    
     return onValue(this.ref(), (snapshot) => {
       const data = [];

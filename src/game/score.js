@@ -13,14 +13,12 @@ export default class Score{
         let spilled = false;
 
         const canSpot = this.game.can.position.x;
-        console.log("Can Spot: ", canSpot);
 
         this.game.cups.map((cup) => {
             const leftError = 10;
             const rightError = 20;
             const cupX = (cup.position.x) + leftError;
             const cupSpot = (cupX + cup.size.width) - rightError;
-            console.log(`Expect region ${cupX} - ${cupSpot}`);
             if(canSpot >= cupX && canSpot <= cupSpot){
                 if(cup.full){
                     spilled = true;
@@ -59,7 +57,6 @@ export default class Score{
             this.game.input.sound(this.game.input.congratsSound);
             this.game.app.controller.updateDailyCan();
             this.game.gameState = GAMESTATE.CONGRATS;
-            console.log("Congratulation!");
             this.emptyCups();
         }
     }
