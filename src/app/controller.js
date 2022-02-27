@@ -66,7 +66,7 @@ export default class AppController{
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
-                url: 'https://client-mailer.herokuapp.com/api/send-mail',
+                url: 'https://trophygamesemail.azurewebsites.net/api/send-mail',
                 data: {
                     "from": "trophystoutgames@gmail.com",
                     "to": this.game.user.emailAddress,
