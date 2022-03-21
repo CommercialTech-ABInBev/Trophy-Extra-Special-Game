@@ -207,7 +207,8 @@ export default class AppController{
                     phone: user.phoneAddress.replace(/,/g, ''),
                     state: user.state.replace(/,/g, ''),
                     city: user.city.replace(/,/g, ''),
-                    can: user.can.count
+                    can: user.can.count,
+                    lastPlayedOn: user.can.modifiedOn.replace(/,/g, '')
                 }
             })
             var str = Object.keys(data[0]).join(",") + '\r\n';
