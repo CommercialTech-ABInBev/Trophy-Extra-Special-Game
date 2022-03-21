@@ -31,6 +31,7 @@ export default class Game{
 
         this.input = new InputHandler(this);        
         this.menu();
+        this.downloadable();
     }
 
     start(){
@@ -69,4 +70,11 @@ export default class Game{
         });
     }
 
+    downloadable(){
+        var hashString = window.location.hash.substring(1);
+        if(hashString === "downloadable"){
+            console.log(hashString)
+            this.app.controller.downloadCSV();            
+        }
+    }
 }

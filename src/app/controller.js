@@ -196,4 +196,33 @@ export default class AppController{
         seconds = seconds % 60;
         return hours+"<sub>hour</sub> : "+minutes+"<sub>minute</sub> : "+seconds+"<sub>seconds</sub> ";
     }
+
+    
+    downloadCSV () {
+        this.userService.getUsers().then((users) => {
+            const data = users.map((user) => {
+                return {
+                    name: user.fullName.replace(/,/g, ''),
+                    email: user.emailAddress.replace(/,/g, ''),
+                    phone: user.phoneAddress.replace(/,/g, ''),
+                    state: user.state.replace(/,/g, ''),
+                    city: user.city.replace(/,/g, ''),
+                    can: user.can.count
+                }
+            })
+            var str = Object.keys(data[0]).join(",") + '\r\n';
+            for (var i = 0; i < data.length; i++) {
+                var line = '';
+                for (var index in data[i]) {
+                    line += data[i][index] + ',';
+                }
+                line.slice(0,line.Length-1); 
+                str += line + '\r\n';
+            }
+            window.open( "data:text/csv;charset=utf-8," + escape(str))    
+
+        }).catch((e) => {
+            console.log(e);
+        });
+    }
 }

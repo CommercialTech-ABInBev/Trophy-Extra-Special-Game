@@ -262,20 +262,20 @@ export default class App{
                         this.popUpToast("bg-info", "Good! You're almost there! 😀");
                         this.game.user = x;
 
-                        // this.game.start();
-                        // loginBtnDOM.disabled = false;
-                        // this.controller.clearForm();
+                        this.game.start();
+                        loginBtnDOM.disabled = false;
+                        this.controller.clearForm();
 
-                        this.controller.sendOTP()
-                            .then((otp) => {
-                                this.controller.clearForm();
-                                loginBtnDOM.disabled = false;
-                                this.renderOTP();                        
-                            }).catch((e) => {
-                                console.log(e);
-                                loginBtnDOM.disabled = false;
-                                this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
-                            });
+                        // this.controller.sendOTP()
+                        //     .then((otp) => {
+                        //         this.controller.clearForm();
+                        //         loginBtnDOM.disabled = false;
+                        //         this.renderOTP();                        
+                        //     }).catch((e) => {
+                        //         console.log(e);
+                        //         loginBtnDOM.disabled = false;
+                        //         this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
+                        //     });
                     }).catch((e) => {
                         console.log(e);
                         loginBtnDOM.disabled = false;
