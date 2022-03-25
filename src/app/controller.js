@@ -197,7 +197,21 @@ export default class AppController{
         return hours+"<sub>hour</sub> : "+minutes+"<sub>minute</sub> : "+seconds+"<sub>seconds</sub> ";
     }
 
-    
+    serverNow(){
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'get',
+                url: 'https://client-mailer.herokuapp.com/api/today',
+                data: {}, 
+                headers: {'API-Auth-Key': '9iU3zyX8IA6UtJxiGDOfgoq0Mcngz1Gir0JnenUfQxZ6AscuTpu0BvRRfuew5H8MXEvAiKAkDCh8mcLbV9sAbsik3fIahjGYzV4u'}
+            }).then((data) => {
+                resolve(data);
+            }).catch((error) => {
+                reject(error);
+            });
+        });    
+    }
+
     downloadCSV () {
         this.userService.getUsers().then((users) => {
             const data = users.map((user) => {

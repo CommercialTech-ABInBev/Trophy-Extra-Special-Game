@@ -2,6 +2,7 @@ import gif from "../../assets/images/*.gif";
 import png from "../../assets/images/*.png";
 import AppController from './controller';
 import * as Constants from '../utils/constants';
+import moment from "moment";
 const GAMESTATE = Constants.GAMESTATE;
 
 export default class App{
@@ -33,6 +34,26 @@ export default class App{
         document.querySelector("#leaderboard-template").classList.remove("render");
     }
 
+    serverTimeCheck(){
+        return new Promise((resolve, reject) => {
+            this.controller.serverNow().then((res) => {
+                const serverTime = moment(res.data.data).add(1, 'hours').format("MM-DD-yyyy hh:mm:ss");
+                const clientTime = moment().format("MM-DD-yyyy hh:mm:ss");
+                const timeDiff = moment(serverTime).diff(moment(clientTime), 'seconds');
+                // console.log("Server says ", serverTime);
+                // console.log("Client says ", clientTime);
+                // console.log("Difference is ", timeDiff);
+                if(timeDiff != 0 && timeDiff != 1){
+                    reject(false);
+                } else {
+                    resolve(true);
+
+                }
+            }).catch((error) => {
+                reject(error);
+            });
+        });    
+    }
     menu(){
         this.renderHome();
     }   
@@ -262,20 +283,20 @@ export default class App{
                         this.popUpToast("bg-info", "Good! You're almost there! 😀");
                         this.game.user = x;
 
-                        this.game.start();
-                        loginBtnDOM.disabled = false;
-                        this.controller.clearForm();
+                        // this.game.start();
+                        // loginBtnDOM.disabled = false;
+                        // this.controller.clearForm();
 
-                        // this.controller.sendOTP()
-                        //     .then((otp) => {
-                        //         this.controller.clearForm();
-                        //         loginBtnDOM.disabled = false;
-                        //         this.renderOTP();                        
-                        //     }).catch((e) => {
-                        //         console.log(e);
-                        //         loginBtnDOM.disabled = false;
-                        //         this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
-                        //     });
+                        this.controller.sendOTP()
+                            .then((otp) => {
+                                this.controller.clearForm();
+                                loginBtnDOM.disabled = false;
+                                this.renderOTP();                        
+                            }).catch((e) => {
+                                console.log(e);
+                                loginBtnDOM.disabled = false;
+                                this.popUpToast("bg-danger", "Couldn't send OTP! 🐞")
+                            });
                     }).catch((e) => {
                         console.log(e);
                         loginBtnDOM.disabled = false;

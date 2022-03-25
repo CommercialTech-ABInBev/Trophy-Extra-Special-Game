@@ -54,14 +54,19 @@ export default class InputHandler{
     }
 
     play(){
-        if(this.game.user.daily.lives > 0 && this.game.user.daily.lives <= 3){
-            document.getElementById("app").classList.add("hide")
-            this.game.can.reset();
-            this.game.app.renderInit();
-            this.game.gameState = GAMESTATE.RUNNING;
-            this.game.startBtn.classList.add("hide");
-            this.game.continueBtn.classList.add("hide");            
-        }
+        this.game.app.serverTimeCheck().then((x) => {
+            if(this.game.user.daily.lives > 0 && this.game.user.daily.lives <= 300){
+                document.getElementById("app").classList.add("hide")
+                this.game.can.reset();
+                this.game.app.renderInit();
+                this.game.gameState = GAMESTATE.RUNNING;
+                this.game.startBtn.classList.add("hide");
+                this.game.continueBtn.classList.add("hide");            
+            }            
+        }).catch((e) => {
+            this.game.menu()
+        })
+
     }
     sound(audio, volume = 0.2){
         audio.pause();
