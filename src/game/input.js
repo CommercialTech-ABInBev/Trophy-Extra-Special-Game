@@ -55,7 +55,7 @@ export default class InputHandler{
 
     play(){
         this.game.app.serverTimeCheck().then((x) => {
-            if(this.game.user.daily.lives > 0 && this.game.user.daily.lives <= 300){
+            if(this.game.user.daily.lives > 0 && this.game.user.daily.lives <= 3){
                 document.getElementById("app").classList.add("hide")
                 this.game.can.reset();
                 this.game.app.renderInit();
