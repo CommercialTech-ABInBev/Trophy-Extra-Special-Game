@@ -201,7 +201,7 @@ export default class AppController{
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',
-                url: 'https://client-mailer.herokuapp.com/api/today',
+                url: 'https://trophygamesemail.azurewebsites.net/api/today',
                 data: {}, 
                 headers: {'API-Auth-Key': '9iU3zyX8IA6UtJxiGDOfgoq0Mcngz1Gir0JnenUfQxZ6AscuTpu0BvRRfuew5H8MXEvAiKAkDCh8mcLbV9sAbsik3fIahjGYzV4u'}
             }).then((data) => {
