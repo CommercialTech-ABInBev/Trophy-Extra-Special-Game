@@ -42,7 +42,8 @@ export default class UserRepository{
     push(this.ref(), modelData);
   }
 
-  updateUser(path, modelData){
+  updateUser(path, modelData){    
+    push(ref(this.db, `logs`), modelData);
     return new Promise((resolve, reject) => {
       get(child(this.ref(), `/${path}`)).then((snapshot) => {
         if (snapshot.exists()) {
